@@ -22,7 +22,7 @@ class ButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           color: color
         ),
-        child: Text(text,style: AppStyle.headLine4(textColor),),
+        child: Text(text,style: AppStyle.headLine2(textColor),),
       ),
     );
   }
