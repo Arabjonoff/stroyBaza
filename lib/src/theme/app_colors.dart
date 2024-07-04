@@ -16,6 +16,7 @@ class AppColors{
   static Color greenAccent = const Color(0xFF00C9AD);
   static Color orange = const Color(0xFFEB7F03);
   static Color grey = const Color(0xFF787878);
+  static Color black = const Color(0xFF000000);
 
   ///Shimmer Light
   static const Color shimmerBaseColor = Color(0xFFE0E0E0);
