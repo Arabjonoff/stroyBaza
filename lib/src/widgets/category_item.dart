@@ -14,13 +14,13 @@ class CategoryItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w),
-        margin: EdgeInsets.symmetric(horizontal: 12.w),
+        margin: EdgeInsets.symmetric(horizontal: 8.w,vertical: 8),
         decoration: BoxDecoration(
           color: AppColors.white,
           boxShadow: [
             BoxShadow(
-              color: AppColors.grey,
-              blurRadius: 5
+              color: AppColors.grey.withOpacity(0.4),
+              blurRadius: 8.r
             )
           ],
           borderRadius: BorderRadius.circular(15)
@@ -30,9 +30,9 @@ class CategoryItem extends StatelessWidget {
           children: [
             SizedBox(
               height: 130.h,
-              child: ClipRRect(
-                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
-                  child: CachedNetworkImage(imageUrl: '',fit: BoxFit.cover,)),
+              // child: ClipRRect(
+              //     borderRadius: const BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
+              //     child: CachedNetworkImage(imageUrl: '',fit: BoxFit.cover,)),
             ),
             Text("Sasna 4x20cm",style: AppStyle.headLine3(AppColors.black),),
             Text("Optom: 20 000 uzs",style: AppStyle.headLine4(AppColors.grey),),

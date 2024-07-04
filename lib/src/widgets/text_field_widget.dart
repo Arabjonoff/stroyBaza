@@ -9,8 +9,8 @@ class TextFieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool keyboardType,readOnly;
-  final Widget? suffixIcon;
-  const TextFieldWidget({super.key, required this.controller,this.hintText = '',this.keyboardType =false,this.readOnly =false,this.suffixIcon});
+  final Widget? suffixIcon,prefix;
+  const TextFieldWidget({super.key, required this.controller,this.hintText = '',this.keyboardType =false,this.readOnly =false,this.suffixIcon, this.prefix});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,10 @@ class TextFieldWidget extends StatelessWidget {
       child: TextField(
         readOnly: readOnly,
         keyboardType: keyboardType?TextInputType.number:TextInputType.text,
-        style: AppStyle.headLine3(AppColors.buttonDark),
+        style: AppStyle.headLine3(AppColors.black),
         decoration:  InputDecoration(
           suffixIcon: suffixIcon,
+          prefixIcon: prefix,
           hintText: hintText,
           border: InputBorder.none,
         ),
