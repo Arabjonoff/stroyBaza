@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
+import 'package:stroy_baza/src/theme/app_style.dart';
 import 'package:stroy_baza/src/widgets/button_widget.dart';
 import 'package:stroy_baza/src/widgets/text_field_widget.dart';
 
@@ -87,7 +89,75 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
               ),
             ),
           ),
-          ButtonWidget(height: 64, onTap: (){}, text: "Savatga qo’shish", color: AppColors.blue, textColor: Colors.white),
+          // ButtonWidget(height: 64, onTap: (){}, text: "Savatga qo’shish", color: AppColors.blue, textColor: Colors.white),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 14.w),
+            height: 64.h,
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  height: double.infinity,
+                  width: 64.r,
+                  decoration: BoxDecoration(
+                    color: AppColors.blue,
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: const Icon(Icons.clear,size: 34,color: Colors.white,),
+                ),
+                SizedBox(width: 4.w,),
+                Expanded(child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(color: Colors.black)
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 54.w,
+                        height: double.infinity,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),topLeft: Radius.circular(15)),
+                          border: Border(
+                            right: BorderSide(
+                                color: Colors.black
+                            )
+                          )
+                        ),
+                        child: const Icon(Icons.remove,size: 34,),
+                      ),
+                      Expanded(child: Center(child: Text('12',style: AppStyle.headLine2(Colors.black),))),
+                      Container(
+                        width: 54.w,
+                        height: double.infinity,
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(15),topRight: Radius.circular(15)),
+                            border: Border(
+                                left: BorderSide(
+                                    color: Colors.black
+                                )
+                            )
+                        ),
+                        child: const Icon(Icons.add,size: 34,),
+                      ),
+                    ],
+                  ),
+                )),
+                SizedBox(width: 4.w,),
+                Container(
+                  alignment: Alignment.center,
+                  height: double.infinity,
+                  width: 64.r,
+                  decoration: BoxDecoration(
+                      color: AppColors.blue,
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: const Icon(Icons.shopping_bag_rounded,size: 34,color: Colors.white,),
+                ),
+              ],
+            ),
+          ),
           SizedBox(height: 34.h,)
         ],
       ),

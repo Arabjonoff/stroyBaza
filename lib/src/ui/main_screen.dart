@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:stroy_baza/src/ui/cart/cart_screen.dart';
 import 'package:stroy_baza/src/ui/category/category_screen.dart';
+import 'package:stroy_baza/src/ui/home/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -9,11 +11,23 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  List<Widget> screens = [
+    HomeScreen(),
+    Container(),
+    CartScreen(),
+    Container(),
+  ];
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CategoryScreen(),
+      body: screens[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        onTap: (i){
+          setState(() {
+            selectedIndex = i;
+          });
+        },
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.indeterminate_check_box),label: "Asosiy"),

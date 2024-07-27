@@ -10,6 +10,19 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Savat"),
+      ),
+      body: Column(
+        children: [
+          ListView.builder(
+            itemCount: 30,
+              itemBuilder: (context,index){
+            return Container();
+          })
+        ],
+      ),
+    );
   }
 }
