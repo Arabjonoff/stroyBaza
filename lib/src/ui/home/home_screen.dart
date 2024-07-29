@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stroy_baza/src/theme/app_colors.dart';
+import 'package:stroy_baza/src/theme/app_style.dart';
 import 'package:stroy_baza/src/ui/category/category_screen.dart';
+import 'package:stroy_baza/src/ui/search/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,25 +19,63 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Asosiy"),
-      ),
-      body: ListView.builder(itemBuilder: (ctx,index){
-        return GestureDetector(
-          onTap: (){
+        actions: [
+          IconButton(onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: (ctx){
-              return CategoryScreen();
+              return SearchScreen();
             }));
-          },
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 4.h),
+          }, icon: const Icon(Icons.search_rounded,size: 34,))
+        ],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 16.w),
             width: MediaQuery.of(context).size.width,
-            height: 134.h,
+            height: 50.h,
             decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(15)
+              borderRadius: BorderRadius.circular(15),
+              color: AppColors.blue
+            ),
+            child: Row(
+              children: [
+                SizedBox(width: 8.w,),
+                const Icon(Icons.person_outlined,color: Colors.white,),
+                SizedBox(width: 8.w,),
+                Text("Mijozlar ro’yxati",style: AppStyle.headLine3(Colors.white),),
+                const Spacer(),
+                const Icon(Icons.arrow_forward_ios,color: Colors.white,),
+                SizedBox(width: 8.w,),
+              ],
             ),
           ),
-        );
-      }),
+          Padding(
+            padding: EdgeInsets.only(left: 16.0.w,top: 12.h,bottom: 12.h),
+            child: Text("Kategoriyalar",style: AppStyle.headLine2(Colors.black),),
+          ),
+          Expanded(
+            child: ListView.builder(itemBuilder: (ctx,index){
+              return GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                    return CategoryScreen();
+                  }));
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 4.h),
+                  width: MediaQuery.of(context).size.width,
+                  height: 134.h,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(15)
+                  ),
+                ),
+              );
+            }),
+          ),
+        ],
+      ),
     );
   }
 }

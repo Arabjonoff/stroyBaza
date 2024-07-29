@@ -10,11 +10,12 @@ class TextFieldWidget extends StatelessWidget {
   final String hintText;
   final bool keyboardType,readOnly;
   final Widget? suffixIcon,prefix;
-  const TextFieldWidget({super.key, required this.controller,this.hintText = '',this.keyboardType =false,this.readOnly =false,this.suffixIcon, this.prefix});
+  final Function()? onTap;
+  const TextFieldWidget({super.key, required this.controller,this.hintText = '',this.keyboardType =false,this.readOnly =false,this.suffixIcon, this.prefix, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 8.h),
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       alignment: Alignment.center,
@@ -25,6 +26,7 @@ class TextFieldWidget extends StatelessWidget {
         border: Border.all(color: AppColors.grey)
       ),
       child: TextField(
+        onTap: onTap,
         readOnly: readOnly,
         keyboardType: keyboardType?TextInputType.number:TextInputType.text,
         style: AppStyle.headLine3(AppColors.black),

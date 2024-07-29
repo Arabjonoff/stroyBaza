@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
+import 'package:stroy_baza/src/ui/cart/cart_screen.dart';
 import 'package:stroy_baza/src/widgets/button_widget.dart';
 import 'package:stroy_baza/src/widgets/text_field_widget.dart';
 
@@ -16,6 +16,7 @@ class CategoryDetailScreen extends StatefulWidget {
 
 class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   int selectedIndex = 0;
+  bool isButton = false;
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
                     height: 314.h,
@@ -85,26 +87,58 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                     padding: EdgeInsets.only(top: 14.w),
                     child: Text("Optom: ",style: TextStyle(fontWeight: FontWeight.bold),),
                   ),),
+                  Padding(
+                    padding: EdgeInsets.only(left: 16.0.w),
+                    child: Text("Ranglari:",style: AppStyle.headLine3(Colors.black),),
+                  ),
+                  ListView.builder(
+                    // ignore: prefer_const_constructors
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: 3,
+                      shrinkWrap: true,
+                      itemBuilder: (context,index){
+                    return Container(
+                      padding: EdgeInsets.only(top: 10.h,left: 16.w),
+                      margin: EdgeInsets.symmetric(horizontal: 16.w,vertical: 4.h),
+                      width: MediaQuery.of(context).size.width,
+                      height: 44.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: Colors.grey)
+                      ),
+                      child: Text("Sariq",style: AppStyle.headLine3(Colors.black),),
+                    );
+                  })
                 ],
               ),
             ),
           ),
-          // ButtonWidget(height: 64, onTap: (){}, text: "Savatga qo’shish", color: AppColors.blue, textColor: Colors.white),
-          Container(
+          if (isButton) ButtonWidget(height: 64, onTap: (){
+            setState(() {
+              isButton = false;
+            });
+          }, text: "Savatga qo’shish", color: AppColors.blue, textColor: Colors.white) else Container(
             margin: EdgeInsets.symmetric(horizontal: 14.w),
             height: 64.h,
             width: MediaQuery.of(context).size.width,
             child: Row(
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  height: double.infinity,
-                  width: 64.r,
-                  decoration: BoxDecoration(
-                    color: AppColors.blue,
-                    borderRadius: BorderRadius.circular(10)
+                GestureDetector(
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: double.infinity,
+                    width: 64.r,
+                    decoration: BoxDecoration(
+                      color: AppColors.blue,
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: const Icon(Icons.clear,size: 34,color: Colors.white,),
                   ),
-                  child: const Icon(Icons.clear,size: 34,color: Colors.white,),
+                    onTap: (){
+                      setState(() {
+                        isButton = true;
+                      });
+                    },
                 ),
                 SizedBox(width: 4.w,),
                 Expanded(child: Container(
@@ -145,15 +179,22 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                   ),
                 )),
                 SizedBox(width: 4.w,),
-                Container(
-                  alignment: Alignment.center,
-                  height: double.infinity,
-                  width: 64.r,
-                  decoration: BoxDecoration(
-                      color: AppColors.blue,
-                      borderRadius: BorderRadius.circular(10)
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                      return CartScreen();
+                    }));
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: double.infinity,
+                    width: 64.r,
+                    decoration: BoxDecoration(
+                        color: AppColors.blue,
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: const Icon(Icons.shopping_bag_rounded,size: 34,color: Colors.white,),
                   ),
-                  child: const Icon(Icons.shopping_bag_rounded,size: 34,color: Colors.white,),
                 ),
               ],
             ),

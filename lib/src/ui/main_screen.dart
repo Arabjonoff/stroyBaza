@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stroy_baza/src/ui/cart/cart_screen.dart';
 import 'package:stroy_baza/src/ui/category/category_screen.dart';
 import 'package:stroy_baza/src/ui/home/home_screen.dart';
+import 'package:stroy_baza/src/ui/order/order_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -13,7 +14,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   List<Widget> screens = [
     HomeScreen(),
-    Container(),
+    OrderScreen(),
     CartScreen(),
     Container(),
   ];

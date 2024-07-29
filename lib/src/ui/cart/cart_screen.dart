@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
+import 'package:stroy_baza/src/ui/cart/cart_order.dart';
+import 'package:stroy_baza/src/widgets/button_widget.dart';
 import 'package:stroy_baza/src/widgets/text_field_widget.dart';
 
 class CartScreen extends StatefulWidget {
@@ -67,6 +69,7 @@ class _CartScreenState extends State<CartScreen> {
                                 child: TextField(
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(left: 16.w),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15)
                                     )
@@ -82,7 +85,8 @@ class _CartScreenState extends State<CartScreen> {
                                 child: TextField(
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
-                                    border: OutlineInputBorder(
+                                      contentPadding: EdgeInsets.only(left: 16.w),
+                                      border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(15)
                                     )
                                   ),
@@ -100,7 +104,18 @@ class _CartScreenState extends State<CartScreen> {
                 ),
               );
             }),
-          )
+          ),
+          Row(
+            children: [
+              Expanded(child: ButtonWidget(height: 64.h, onTap: (){}, text: "Bekor qilish", color: Colors.red, textColor: Colors.white)),
+              Expanded(child: ButtonWidget(height: 64.h, onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                  return CartOrderScreen();
+                }));
+              }, text: "Davom etish", color: AppColors.blue, textColor: Colors.white)),
+            ],
+          ),
+          SizedBox(height: 34.h,)
         ],
       ),
     );
