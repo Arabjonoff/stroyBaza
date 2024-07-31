@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stroy_baza/src/api/repository.dart';
+import 'package:stroy_baza/src/dialog/center_dialog.dart';
+import 'package:stroy_baza/src/dialog/toast_dialog.dart';
+import 'package:stroy_baza/src/model/http_result.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
 import 'package:stroy_baza/src/ui/main_screen.dart';
+import 'package:stroy_baza/src/utils/cache.dart';
 import 'package:stroy_baza/src/widgets/button_widget.dart';
 import 'package:stroy_baza/src/widgets/text_field_widget.dart';
 
@@ -15,6 +20,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final Repository _repository = Repository();
   TextEditingController controllerPhone = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
   @override
@@ -41,11 +47,20 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          ButtonWidget(height: 64, onTap: (){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx){
-              return const MainScreen();
-            }));
-            Navigator.popUntil(context, (route) => route.isFirst);
+          ButtonWidget(height: 64, onTap: ()async{
+            CenterDialog.showLoadingDialog(context);
+            HttpResult res = await _repository.login(controllerPhone.text, controllerPassword.text);
+            if(res.result["success"] == true){
+              CacheService.token(res.result["token"]);
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx){
+                return const MainScreen();
+              }));
+              Navigator.popUntil(context, (route) => route.isFirst);
+            }
+            else{
+              if(context.mounted)Navigator.pop(context);
+              ToastDialog.showErrorToast(context, res.result["status"].toString());
+            }
           }, text: "Tasdiqlash", color: AppColors.blue, textColor: Colors.white),
           SizedBox(height: 34.h,)
         ],

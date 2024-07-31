@@ -2,19 +2,37 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../model/http_result.dart';
 import 'package:http/http.dart' as http;
 
 class ApiProvider{
   final String _baseUrl = "https://stroybaza.usgroup.uz/";
   static const _duration = Duration(seconds: 60);
-  static Future<HttpResult> _patchRequest(String url, body,) async {
+  getReqHeader() async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String token = preferences.getString("token")??"";
+    if (token == "") {
+      return {
+        'Content-type': 'application/json',
+        // 'Authorization': 'Token ',
+      };
+    } else {
+      return {
+        'Content-type': 'application/json',
+        'Authorization': 'Token $token',
+      };
+    }
+  }
+   Future<HttpResult> _patchRequest(String url, body,) async {
     print(url);
     print(body);
     try {
+      final dynamic headers = await getReqHeader();
       http.Response response = await http.patch(
         Uri.parse(url),
-        headers: {"Accept": "application/json",},
+        headers: headers,
         body: body,
       ).timeout(_duration);
       return _result(response);
@@ -32,13 +50,14 @@ class ApiProvider{
       );
     }
   }
-  static Future<HttpResult> _putRequest(String url, body,) async {
+   Future<HttpResult> _putRequest(String url, body,) async {
     print(url);
     print(body);
     try {
+      final dynamic headers = await getReqHeader();
       http.Response response = await http.put(
         Uri.parse(url),
-        headers: {"Accept": "application/json",},
+        headers: headers,
         body: body,
       ).timeout(_duration);
       return _result(response);
@@ -56,13 +75,14 @@ class ApiProvider{
       );
     }
   }
-  static Future<HttpResult> _deleteRequest(String url, body,) async {
+   Future<HttpResult> _deleteRequest(String url, body,) async {
     print(url);
     print(body);
     try {
+      final dynamic headers = await getReqHeader();
       http.Response response = await http.delete(
         Uri.parse(url),
-        headers: {"Accept": "application/json",},
+        headers: headers,
         body: body,
       ).timeout(_duration);
       return _result(response);
@@ -80,13 +100,14 @@ class ApiProvider{
       );
     }
   }
-  static Future<HttpResult> _postRequest(String url, body,) async {
+   Future<HttpResult> _postRequest(String url, body,) async {
     print(url);
     print(body);
     try {
+      final dynamic headers = await getReqHeader();
       http.Response response = await http.post(
         Uri.parse(url),
-        headers: {"Accept": "application/json",},
+        headers: headers,
         body: body,
       ).timeout(_duration);
       return _result(response);
@@ -104,10 +125,13 @@ class ApiProvider{
       );
     }
   }
-  static Future<HttpResult> _getRequest(String url,) async {
+   Future<HttpResult> _getRequest(String url,) async {
     print(url);
     try {
-      http.Response response = await http.get(Uri.parse(url),).timeout(_duration);
+      final dynamic headers = await getReqHeader();
+      http.Response response = await http.get(
+        headers: headers,
+        Uri.parse(url),).timeout(_duration);
       return _result(response);
     } on TimeoutException catch (_) {
       return HttpResult(
@@ -123,7 +147,7 @@ class ApiProvider{
       );
     }
   }
-  static HttpResult _result(http.Response response) {
+   HttpResult _result(http.Response response) {
     print(response.statusCode);
     print(response.body);
 
@@ -158,7 +182,7 @@ class ApiProvider{
       "username":username,
       "password":password
     };
-    String url = "${_baseUrl}app/login";
+    String url = "${_baseUrl}app/login/";
     return await _postRequest(url, body);
   }
 
