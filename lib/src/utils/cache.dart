@@ -8,4 +8,10 @@ class CacheService{
   static Future<bool> clear() async {
     return await preferences!.clear();
   }
+  static void token(String data) {
+    preferences!.setString("token", data);
+  }
+  static void getToken(String data) {
+    preferences!.getString("token",);
+  }
 }
