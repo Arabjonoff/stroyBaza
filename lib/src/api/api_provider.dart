@@ -130,7 +130,6 @@ class ApiProvider{
     try {
       final dynamic headers = await getReqHeader();
       http.Response response = await http.get(
-        headers: headers,
         Uri.parse(url),).timeout(_duration);
       return _result(response);
     } on TimeoutException catch (_) {

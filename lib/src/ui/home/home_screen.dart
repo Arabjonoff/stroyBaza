@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stroy_baza/src/bloc/parametrs/category_bloc.dart';
+import 'package:stroy_baza/src/model/parametrs/category_model.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
 import 'package:stroy_baza/src/ui/category/category_screen.dart';
@@ -14,6 +16,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+  categoryBloc.getAllCategory();
+  super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,24 +62,42 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text("Kategoriyalar",style: AppStyle.headLine2(Colors.black),),
           ),
           Expanded(
-            child: ListView.builder(itemBuilder: (ctx,index){
-              return GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                    return CategoryScreen();
-                  }));
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 4.h),
-                  width: MediaQuery.of(context).size.width,
-                  height: 134.h,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(15)
-                  ),
-                ),
-              );
-            }),
+            child: StreamBuilder<CategoryModel>(
+              stream: categoryBloc.getCategoryStream,
+              builder: (context, snapshot) {
+                if(snapshot.hasData){
+                  var data = snapshot.data!.data;
+                  return ListView.builder(
+                    itemCount: data.length,
+                      itemBuilder: (ctx,index){
+                    return GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                          return CategoryScreen(id: data[index].id, name: data[index].name,);
+                        }));
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(top: 12.r,left: 16.r),
+                        margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 4.h),
+                        width: MediaQuery.of(context).size.width,
+                        height: 134.h,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.grey.withOpacity(0.3),
+                              blurRadius: 5
+                            )
+                          ],
+                            borderRadius: BorderRadius.circular(15)
+                        ),
+                        child: Text(data[index].name,style: AppStyle.headLine2(Colors.black),),
+                      ),
+                    );
+                  });
+                } return SizedBox();
+              }
+            ),
           ),
         ],
       ),

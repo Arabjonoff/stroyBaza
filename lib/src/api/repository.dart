@@ -7,7 +7,7 @@ class Repository {
   Future<HttpResult> login(username, password) async => await _apiProvider.login(username, password);
 
   /// Paramets
-  Future<HttpResult> category(username, password) async => await _apiProvider.category();
+  Future<HttpResult> category() async => await _apiProvider.category();
   Future<HttpResult> currency() async => await _apiProvider.currency();
   Future<HttpResult> paymentsType() async => await _apiProvider.paymentsType();
 

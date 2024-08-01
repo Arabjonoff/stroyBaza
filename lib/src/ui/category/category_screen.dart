@@ -5,7 +5,9 @@ import 'package:stroy_baza/src/ui/category/category_detail.dart';
 import 'package:stroy_baza/src/widgets/category_item.dart';
 
 class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({super.key});
+  final int id;
+  final String name;
+  const CategoryScreen({super.key, required this.id, required this.name});
 
   @override
   State<CategoryScreen> createState() => _CategoryScreenState();
@@ -20,7 +22,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.black,
-        title: Text("Yogochlar"),
+        title: Text(widget.name),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(24.h),
           child: Padding(
