@@ -1,12 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stroy_baza/src/model/parametrs/product_model.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
 
 class CategoryItem extends StatelessWidget {
+  final ProductResult data;
   final Function() onTap;
-  const CategoryItem({super.key, required this.onTap});
+  const CategoryItem({super.key, required this.onTap, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class CategoryItem extends StatelessWidget {
               //     borderRadius: const BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
               //     child: CachedNetworkImage(imageUrl: '',fit: BoxFit.cover,)),
             ),
-            Text("Sasna 4x20cm",style: AppStyle.headLine3(AppColors.black),),
+            Text("${data.product.name} ${data.product.size.name}",style: AppStyle.headLine3(AppColors.black),),
             Text("Optom: 20 000 uzs",style: AppStyle.headLine4(AppColors.grey),),
             Text("Oddiy: 30 000 uzs",style: AppStyle.headLine4(AppColors.grey),),
             Text("Qoldiq: 1 500 dona",style: AppStyle.headLine4(AppColors.grey),),

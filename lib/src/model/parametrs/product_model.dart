@@ -4,22 +4,22 @@
 
 import 'dart:convert';
 
-CategoryListModel categoryListModelFromJson(String str) => CategoryListModel.fromJson(json.decode(str));
+ProductModel categoryListModelFromJson(String str) => ProductModel.fromJson(json.decode(str));
 
-String categoryListModelToJson(CategoryListModel data) => json.encode(data.toJson());
+String categoryListModelToJson(ProductModel data) => json.encode(data.toJson());
 
-class CategoryListModel {
+class ProductModel {
   int pages;
-  List<Datum> data;
+  List<ProductResult> data;
 
-  CategoryListModel({
+  ProductModel({
     required this.pages,
     required this.data,
   });
 
-  factory CategoryListModel.fromJson(Map<String, dynamic> json) => CategoryListModel(
+  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
     pages: json["pages"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<ProductResult>.from(json["data"].map((x) => ProductResult.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -28,7 +28,7 @@ class CategoryListModel {
   };
 }
 
-class Datum {
+class ProductResult {
   int id;
   Warehouse warehouse;
   Color color;
@@ -42,7 +42,7 @@ class Datum {
   dynamic img4;
   dynamic img5;
 
-  Datum({
+  ProductResult({
     required this.id,
     required this.warehouse,
     required this.color,
@@ -57,7 +57,7 @@ class Datum {
     required this.img5,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory ProductResult.fromJson(Map<String, dynamic> json) => ProductResult(
     id: json["id"],
     warehouse: Warehouse.fromJson(json["warehouse"]),
     color: Color.fromJson(json["color"]),

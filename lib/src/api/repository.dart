@@ -12,7 +12,7 @@ class Repository {
   Future<HttpResult> paymentsType() async => await _apiProvider.paymentsType();
 
   /// Products
-  Future<HttpResult> productList() async => await _apiProvider.productList();
+  Future<HttpResult> productList(int id) async => await _apiProvider.productList(id);
   Future<HttpResult> productDetail(id) async => await _apiProvider.productDetail(id);
 
   /// Clients

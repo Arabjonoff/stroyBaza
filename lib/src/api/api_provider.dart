@@ -15,12 +15,11 @@ class ApiProvider{
     String token = preferences.getString("token")??"";
     if (token == "") {
       return {
-        'Content-type': 'application/json',
-        // 'Authorization': 'Token ',
+        "Accept": "application/json",
       };
     } else {
       return {
-        'Content-type': 'application/json',
+        "Accept": "application/json",
         'Authorization': 'Token $token',
       };
     }
@@ -130,7 +129,9 @@ class ApiProvider{
     try {
       final dynamic headers = await getReqHeader();
       http.Response response = await http.get(
-        Uri.parse(url),).timeout(_duration);
+        Uri.parse(url),
+        headers: headers
+      ).timeout(_duration);
       return _result(response);
     } on TimeoutException catch (_) {
       return HttpResult(
@@ -200,8 +201,8 @@ class ApiProvider{
   }
 
   /// Products
-  Future<HttpResult> productList()async{
-    String url = "${_baseUrl}app/products/1/list_/";
+  Future<HttpResult> productList(int id)async{
+    String url = "${_baseUrl}app/products/$id/list_/";
     return await _getRequest(url,);
   }
   Future<HttpResult> productDetail(id)async{
