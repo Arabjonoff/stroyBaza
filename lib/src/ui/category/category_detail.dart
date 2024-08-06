@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stroy_baza/src/model/parametrs/product_model.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
 import 'package:stroy_baza/src/ui/cart/cart_screen.dart';
@@ -8,7 +9,8 @@ import 'package:stroy_baza/src/widgets/button_widget.dart';
 import 'package:stroy_baza/src/widgets/text_field_widget.dart';
 
 class CategoryDetailScreen extends StatefulWidget {
-  const CategoryDetailScreen({super.key});
+  final ProductResult data;
+  const CategoryDetailScreen({super.key, required this.data});
 
   @override
   State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
@@ -22,7 +24,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Yong’oq 4x20cm"),
+        title: Text(widget.data.product.name),
       ),
       body: Column(
         children: [
@@ -63,19 +65,19 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         Row(
                           children: [
                             Text("Qoldiq:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text(" 1 500 dona")
+                            Text(" ${widget.data.count}")
                           ],
                         ),
                         Row(
                           children: [
                             Text("Kategoriyasi:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text("Yog’ochlar")
+                            Text(" ${widget.data}")
                           ],
                         ),
                         Row(
                           children: [
                             Text("Razmeri:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text("4x20cm")
+                            Text(" ${widget.data.product.measurement.name}")
                           ],
                         ),
                       ],
@@ -94,7 +96,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                   ListView.builder(
                     // ignore: prefer_const_constructors
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: 3,
+                    itemCount: 1,
                       shrinkWrap: true,
                       itemBuilder: (context,index){
                     return Container(

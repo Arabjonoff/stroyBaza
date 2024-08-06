@@ -56,7 +56,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 itemBuilder: (ctx,index){
                   return CategoryItem(onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                      return CategoryDetailScreen();
+                      return CategoryDetailScreen(data: data[index],);
                     }));
                   }, data: data[index],);
                 });

@@ -31,7 +31,7 @@ class ProductModel {
 class ProductResult {
   int id;
   Warehouse warehouse;
-  Color color;
+  ProductColor color;
   String count;
   Product product;
   String companyName;
@@ -60,7 +60,7 @@ class ProductResult {
   factory ProductResult.fromJson(Map<String, dynamic> json) => ProductResult(
     id: json["id"],
     warehouse: Warehouse.fromJson(json["warehouse"]),
-    color: Color.fromJson(json["color"]),
+    color: ProductColor.fromJson(json["color"]),
     count: json["count"],
     product: Product.fromJson(json["product"]),
     companyName: json["company_name"],
@@ -88,16 +88,16 @@ class ProductResult {
   };
 }
 
-class Color {
+class ProductColor {
   int id;
   String name;
 
-  Color({
+  ProductColor({
     required this.id,
     required this.name,
   });
 
-  factory Color.fromJson(Map<String, dynamic> json) => Color(
+  factory ProductColor.fromJson(Map<String, dynamic> json) => ProductColor(
     id: json["id"],
     name: json["name"],
   );
@@ -111,8 +111,8 @@ class Color {
 class Product {
   String name;
   List<Price> prices;
-  Color measurement;
-  Color size;
+  ProductColor measurement;
+  ProductColor size;
 
   Product({
     required this.name,
@@ -124,8 +124,8 @@ class Product {
   factory Product.fromJson(Map<String, dynamic> json) => Product(
     name: json["name"]??"",
     prices: json["prices"]==null?[]:List<Price>.from(json["prices"].map((x) => Price.fromJson(x))),
-    measurement: json["measurement"]==null?Color.fromJson({}):Color.fromJson(json["measurement"]),
-    size: json["size"]==null?Color.fromJson({}):Color.fromJson(json["size"]),
+    measurement: json["measurement"]==null?ProductColor.fromJson({}):ProductColor.fromJson(json["measurement"]),
+    size: json["size"]==null?ProductColor.fromJson({}):ProductColor.fromJson(json["size"]),
   );
 
   Map<String, dynamic> toJson() => {
