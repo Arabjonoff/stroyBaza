@@ -202,7 +202,7 @@ class ApiProvider{
 
   /// Products
   Future<HttpResult> productList(int id)async{
-    String url = "${_baseUrl}app/products/$id/list_/";
+    String url = "${_baseUrl}app/products/?category=$id";
     return await _getRequest(url,);
   }
   Future<HttpResult> productDetail(id)async{

@@ -24,7 +24,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.data.product.name),
+        title: Text(widget.data.name),
       ),
       body: Column(
         children: [
@@ -65,7 +65,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         Row(
                           children: [
                             Text("Qoldiq:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text(" ${widget.data.count}")
+                            Text(" ${widget.data.productCounts}")
                           ],
                         ),
                         Row(
@@ -77,7 +77,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         Row(
                           children: [
                             Text("Razmeri:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text(" ${widget.data.product.measurement.name}")
+                            Text(" ${widget.data.name}")
                           ],
                         ),
                       ],

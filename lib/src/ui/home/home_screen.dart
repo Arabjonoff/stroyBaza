@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:stroy_baza/src/bloc/parametrs/category_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:stroy_baza/src/model/parametrs/category_model.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
 import 'package:stroy_baza/src/ui/category/category_screen.dart';
+import 'package:stroy_baza/src/ui/client/add_client.dart';
 import 'package:stroy_baza/src/ui/search/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,24 +41,31 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 16.w),
-            width: MediaQuery.of(context).size.width,
-            height: 50.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: AppColors.blue
-            ),
-            child: Row(
-              children: [
-                SizedBox(width: 8.w,),
-                const Icon(Icons.person_outlined,color: Colors.white,),
-                SizedBox(width: 8.w,),
-                Text("Mijozlar ro’yxati",style: AppStyle.headLine3(Colors.white),),
-                const Spacer(),
-                const Icon(Icons.arrow_forward_ios,color: Colors.white,),
-                SizedBox(width: 8.w,),
-              ],
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                return AddClientScreen();
+              }));
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 16.w),
+              width: MediaQuery.of(context).size.width,
+              height: 50.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: AppColors.blue
+              ),
+              child: Row(
+                children: [
+                  SizedBox(width: 8.w,),
+                  const Icon(Icons.person_outlined,color: Colors.white,),
+                  SizedBox(width: 8.w,),
+                  Text("Mijozlar ro’yxati",style: AppStyle.headLine3(Colors.white),),
+                  const Spacer(),
+                  const Icon(Icons.arrow_forward_ios,color: Colors.white,),
+                  SizedBox(width: 8.w,),
+                ],
+              ),
             ),
           ),
           Padding(

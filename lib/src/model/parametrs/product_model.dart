@@ -1,12 +1,8 @@
-// To parse this JSON data, do
-//
-//     final categoryListModel = categoryListModelFromJson(jsonString);
-
 import 'dart:convert';
 
-ProductModel categoryListModelFromJson(String str) => ProductModel.fromJson(json.decode(str));
+ProductModel productsDetailModelFromJson(String str) => ProductModel.fromJson(json.decode(str));
 
-String categoryListModelToJson(ProductModel data) => json.encode(data.toJson());
+String productsDetailModelToJson(ProductModel data) => json.encode(data.toJson());
 
 class ProductModel {
   int pages;
@@ -30,109 +26,81 @@ class ProductModel {
 
 class ProductResult {
   int id;
-  Warehouse warehouse;
-  ProductColor color;
-  String count;
-  Product product;
-  String companyName;
-  String productNumber;
-  dynamic img1;
-  dynamic img2;
-  dynamic img3;
-  dynamic img4;
-  dynamic img5;
+  String name;
+  Category category;
+  Measurement measurement;
+  List<Price> prices;
+  List<ProductCount> productCounts;
 
   ProductResult({
     required this.id,
-    required this.warehouse,
-    required this.color,
-    required this.count,
-    required this.product,
-    required this.companyName,
-    required this.productNumber,
-    required this.img1,
-    required this.img2,
-    required this.img3,
-    required this.img4,
-    required this.img5,
+    required this.name,
+    required this.category,
+    required this.measurement,
+    required this.prices,
+    required this.productCounts,
   });
 
   factory ProductResult.fromJson(Map<String, dynamic> json) => ProductResult(
     id: json["id"],
-    warehouse: Warehouse.fromJson(json["warehouse"]),
-    color: ProductColor.fromJson(json["color"]),
-    count: json["count"],
-    product: Product.fromJson(json["product"]),
-    companyName: json["company_name"],
-    productNumber: json["product_number"],
-    img1: json["img_1"],
-    img2: json["img_2"],
-    img3: json["img_3"],
-    img4: json["img_4"],
-    img5: json["img_5"],
+    name: json["name"],
+    category: Category.fromJson(json["category"]),
+    measurement: Measurement.fromJson(json["measurement"]),
+    prices: List<Price>.from(json["prices"].map((x) => Price.fromJson(x))),
+    productCounts: List<ProductCount>.from(json["product_counts"].map((x) => ProductCount.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "warehouse": warehouse.toJson(),
-    "color": color.toJson(),
-    "count": count,
-    "product": product.toJson(),
-    "company_name": companyName,
-    "product_number": productNumber,
-    "img_1": img1,
-    "img_2": img2,
-    "img_3": img3,
-    "img_4": img4,
-    "img_5": img5,
+    "name": name,
+    "category": category.toJson(),
+    "measurement": measurement.toJson(),
+    "prices": List<dynamic>.from(prices.map((x) => x.toJson())),
+    "product_counts": List<dynamic>.from(productCounts.map((x) => x.toJson())),
   };
 }
 
-class ProductColor {
+class Category {
+  int id;
+  String name;
+  dynamic img;
+
+  Category({
+    required this.id,
+    required this.name,
+    required this.img,
+  });
+
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
+    id: json["id"],
+    name: json["name"],
+    img: json["img"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "img": img,
+  };
+}
+
+class Measurement {
   int id;
   String name;
 
-  ProductColor({
+  Measurement({
     required this.id,
     required this.name,
   });
 
-  factory ProductColor.fromJson(Map<String, dynamic> json) => ProductColor(
-    id: json["id"],
-    name: json["name"],
+  factory Measurement.fromJson(Map<String, dynamic> json) => Measurement(
+    id: json["id"]??0,
+    name: json["name"]??"",
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
-  };
-}
-
-class Product {
-  String name;
-  List<Price> prices;
-  ProductColor measurement;
-  ProductColor size;
-
-  Product({
-    required this.name,
-    required this.prices,
-    required this.measurement,
-    required this.size,
-  });
-
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-    name: json["name"]??"",
-    prices: json["prices"]==null?[]:List<Price>.from(json["prices"].map((x) => Price.fromJson(x))),
-    measurement: json["measurement"]==null?ProductColor.fromJson({}):ProductColor.fromJson(json["measurement"]),
-    size: json["size"]==null?ProductColor.fromJson({}):ProductColor.fromJson(json["size"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "name": name,
-    "prices": List<dynamic>.from(prices.map((x) => x.toJson())),
-    "measurement": measurement.toJson(),
-    "size": size.toJson(),
   };
 }
 
@@ -154,12 +122,12 @@ class Price {
   });
 
   factory Price.fromJson(Map<String, dynamic> json) => Price(
-    id: json["id"]??0,
-    currency: json["currency"]??"",
-    arrivalPrice: json["arrival_price"]??"",
-    unitPrice: json["unit_price"]??"",
-    wholesalePrice: json["wholesale_price"]??"",
-    product: json["product"]??0,
+    id: json["id"],
+    currency: json["currency"],
+    arrivalPrice: json["arrival_price"],
+    unitPrice: json["unit_price"],
+    wholesalePrice: json["wholesale_price"],
+    product: json["product"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -172,11 +140,99 @@ class Price {
   };
 }
 
+class ProductCount {
+  int id;
+  Warehouse warehouse;
+  Measurement? color;
+  Measurement? size;
+  Product product;
+  String count;
+  String companyName;
+  String productNumber;
+  String img1;
+  dynamic img2;
+  String? img3;
+  dynamic img4;
+  dynamic img5;
+
+  ProductCount({
+    required this.id,
+    required this.warehouse,
+    required this.color,
+    required this.size,
+    required this.product,
+    required this.count,
+    required this.companyName,
+    required this.productNumber,
+    required this.img1,
+    required this.img2,
+    required this.img3,
+    required this.img4,
+    required this.img5,
+  });
+
+  factory ProductCount.fromJson(Map<String, dynamic> json) => ProductCount(
+    id: json["id"],
+    warehouse: Warehouse.fromJson(json["warehouse"]),
+    color: json["color"] == null ? null : Measurement.fromJson(json["color"]),
+    size: json["size"] == null ? null : Measurement.fromJson(json["size"]),
+    product: Product.fromJson(json["product"]),
+    count: json["count"],
+    companyName: json["company_name"],
+    productNumber: json["product_number"],
+    img1: json["img_1"]??"",
+    img2: json["img_2"]??"",
+    img3: json["img_3"]??"",
+    img4: json["img_4"]??"",
+    img5: json["img_5"]??"",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "warehouse": warehouse.toJson(),
+    "color": color?.toJson(),
+    "size": size?.toJson(),
+    "product": product.toJson(),
+    "count": count,
+    "company_name": companyName,
+    "product_number": productNumber,
+    "img_1": img1,
+    "img_2": img2,
+    "img_3": img3,
+    "img_4": img4,
+    "img_5": img5,
+  };
+}
+
+class Product {
+  String name;
+  List<Price> prices;
+  Measurement measurement;
+
+  Product({
+    required this.name,
+    required this.prices,
+    required this.measurement,
+  });
+
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+    name: json["name"],
+    prices: List<Price>.from(json["prices"].map((x) => Price.fromJson(x))),
+    measurement: Measurement.fromJson(json["measurement"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "prices": List<dynamic>.from(prices.map((x) => x.toJson())),
+    "measurement": measurement.toJson(),
+  };
+}
+
 class Warehouse {
   int id;
   String name;
-  num income;
-  num outcome;
+  int income;
+  int outcome;
 
   Warehouse({
     required this.id,
@@ -186,10 +242,10 @@ class Warehouse {
   });
 
   factory Warehouse.fromJson(Map<String, dynamic> json) => Warehouse(
-    id: json["id"]??0,
-    name: json["name"]??"",
-    income: json["income"]??0,
-    outcome: json["outcome"]??0,
+    id: json["id"],
+    name: json["name"],
+    income: json["income"],
+    outcome: json["outcome"],
   );
 
   Map<String, dynamic> toJson() => {

@@ -58,7 +58,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     Navigator.push(context, MaterialPageRoute(builder: (ctx){
                       return CategoryDetailScreen(data: data[index],);
                     }));
-                  }, data: data[index],);
+                  }, data: data[index], index: index,);
                 });
           }
           return Center(

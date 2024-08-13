@@ -6,9 +6,10 @@ import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
 
 class CategoryItem extends StatelessWidget {
+  final int index;
   final ProductResult data;
   final Function() onTap;
-  const CategoryItem({super.key, required this.onTap, required this.data});
+  const CategoryItem({super.key, required this.onTap, required this.data, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +33,14 @@ class CategoryItem extends StatelessWidget {
           children: [
             SizedBox(
               height: 130.h,
-              // child: ClipRRect(
-              //     borderRadius: const BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
-              //     child: CachedNetworkImage(imageUrl: '',fit: BoxFit.cover,)),
+              child: ClipRRect(
+                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15)),
+                  child: CachedNetworkImage(imageUrl: data.productCounts[0].img1,fit: BoxFit.cover,)),
             ),
-            Text("${data.product.name} ${data.product.size.name}",style: AppStyle.headLine3(AppColors.black),),
-            Text("Optom: 20 000 uzs",style: AppStyle.headLine4(AppColors.grey),),
-            Text("Oddiy: 30 000 uzs",style: AppStyle.headLine4(AppColors.grey),),
-            Text("Qoldiq: 1 500 dona",style: AppStyle.headLine4(AppColors.grey),),
+            Text(data.name,style: AppStyle.headLine3(AppColors.black),maxLines: 1,),
+            Text("Optom: ${data.prices[1].wholesalePrice}",style: AppStyle.headLine4(AppColors.grey),),
+            Text("Oddiy: ${data.prices[index].unitPrice}",style: AppStyle.headLine4(AppColors.grey),),
+            Text("Qoldiq: ${data.productCounts[index].count}",style: AppStyle.headLine4(AppColors.grey),),
           ],
         ),
       ),
