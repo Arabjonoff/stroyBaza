@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stroy_baza/src/model/parametrs/product_model.dart';
@@ -16,7 +15,6 @@ class CategoryDetailScreen extends StatefulWidget {
   @override
   State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
 }
-
 class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   int selectedIndex = 0;
   bool isButton = false;
