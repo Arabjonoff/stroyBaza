@@ -143,8 +143,8 @@ class Price {
 class ProductCount {
   int id;
   Warehouse warehouse;
-  Measurement? color;
-  Measurement? size;
+  Measurement color;
+  Measurement size;
   Product product;
   String count;
   String companyName;
@@ -174,8 +174,8 @@ class ProductCount {
   factory ProductCount.fromJson(Map<String, dynamic> json) => ProductCount(
     id: json["id"],
     warehouse: Warehouse.fromJson(json["warehouse"]),
-    color: json["color"] == null ? null : Measurement.fromJson(json["color"]),
-    size: json["size"] == null ? null : Measurement.fromJson(json["size"]),
+    color: json["color"]==null?Measurement.fromJson({}):Measurement.fromJson(json["color"]),
+    size: json["size"]==null?Measurement.fromJson({}):Measurement.fromJson(json["size"]),
     product: Product.fromJson(json["product"]),
     count: json["count"],
     companyName: json["company_name"],
@@ -190,8 +190,8 @@ class ProductCount {
   Map<String, dynamic> toJson() => {
     "id": id,
     "warehouse": warehouse.toJson(),
-    "color": color?.toJson(),
-    "size": size?.toJson(),
+    "color": color.toJson(),
+    "size": size.toJson(),
     "product": product.toJson(),
     "count": count,
     "company_name": companyName,

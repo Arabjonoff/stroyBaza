@@ -10,7 +10,8 @@ import 'package:stroy_baza/src/widgets/text_field_widget.dart';
 
 class CategoryDetailScreen extends StatefulWidget {
   final ProductResult data;
-  const CategoryDetailScreen({super.key, required this.data});
+  final int index;
+  const CategoryDetailScreen({super.key, required this.data, required this.index});
 
   @override
   State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
@@ -65,19 +66,19 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         Row(
                           children: [
                             Text("Qoldiq:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text(" ${widget.data.productCounts}")
+                            Text(" ${widget.data.productCounts[widget.index].count}")
                           ],
                         ),
                         Row(
                           children: [
                             Text("Kategoriyasi:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text(" ${widget.data}")
+                            Text(" ${widget.data.category.name}")
                           ],
                         ),
                         Row(
                           children: [
                             Text("Razmeri:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text(" ${widget.data.name}")
+                            Text("${widget.data.productCounts[widget.index].color.name}")
                           ],
                         ),
                       ],
@@ -96,7 +97,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                   ListView.builder(
                     // ignore: prefer_const_constructors
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: 1,
+                    itemCount: widget.data.productCounts.length,
                       shrinkWrap: true,
                       itemBuilder: (context,index){
                     return Container(
@@ -108,7 +109,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         borderRadius: BorderRadius.circular(15),
                         border: Border.all(color: Colors.grey)
                       ),
-                      child: Text("Sariq",style: AppStyle.headLine3(Colors.black),),
+                      child: Text(widget.data.productCounts[index].color.name,style: AppStyle.headLine3(Colors.black),),
                     );
                   })
                 ],
