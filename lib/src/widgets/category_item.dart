@@ -38,7 +38,7 @@ class CategoryItem extends StatelessWidget {
                   child: CachedNetworkImage(imageUrl: data.productCounts[0].img1,fit: BoxFit.cover,)),
             ),
             Text(data.name,style: AppStyle.headLine3(AppColors.black),maxLines: 1,),
-            Text("Optom: ${data.prices[1].wholesalePrice}",style: AppStyle.headLine4(AppColors.grey),),
+            Text("Optom: ${data.prices[index].wholesalePrice}",style: AppStyle.headLine4(AppColors.grey),),
             Text("Oddiy: ${data.prices[index].unitPrice}",style: AppStyle.headLine4(AppColors.grey),),
             Text("Qoldiq: ${data.productCounts[index].count}",style: AppStyle.headLine4(AppColors.grey),),
           ],

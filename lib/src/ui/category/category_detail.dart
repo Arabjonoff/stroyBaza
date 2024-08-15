@@ -16,9 +16,19 @@ class CategoryDetailScreen extends StatefulWidget {
   State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
 }
 class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
+  List img = [];
   int selectedIndex = 0;
   bool isButton = false;
   TextEditingController controller = TextEditingController();
+  @override
+  void initState() {
+    img.add(widget.data.productCounts[widget.index].img1);
+    img.add(widget.data.productCounts[widget.index].img2);
+    img.add(widget.data.productCounts[widget.index].img3);
+    img.add(widget.data.productCounts[widget.index].img4);
+    img.add(widget.data.productCounts[widget.index].img5);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +50,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         setState(() {});
                       },
                       scrollDirection: Axis.horizontal,
-                      itemCount: 5,
+                      itemCount: img.length,
                       itemBuilder: (ctx,index){
                       return Container(
                         margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 8),
@@ -50,6 +60,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                           color: Colors.blue,
                           borderRadius: BorderRadius.circular(15),
                         ),
+                        child: Image.network(img[index],fit: BoxFit.cover,),
                       );
                     }),
                   ),
@@ -82,11 +93,11 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                       ],
                     ),
                   ),
-                  TextFieldWidget(controller: controller,prefix: Padding(padding: EdgeInsets.only(top: 14.w), child: Text("Oddiy: ",style: TextStyle(fontWeight: FontWeight.bold),),
+                  TextFieldWidget(controller: controller,prefix: Padding(padding: EdgeInsets.only(top: 14.w), child: Text("Oddiy: ${widget.data.prices[widget.index].unitPrice}",style: TextStyle(fontWeight: FontWeight.bold),),
                   ),),
                   TextFieldWidget(controller: controller,prefix: Padding(
                     padding: EdgeInsets.only(top: 14.w),
-                    child: Text("Optom: ",style: TextStyle(fontWeight: FontWeight.bold),),
+                    child: Text("Optom: ${widget.data.prices[widget.index].wholesalePrice}",style: TextStyle(fontWeight: FontWeight.bold),),
                   ),),
                   Padding(
                     padding: EdgeInsets.only(left: 16.0.w),

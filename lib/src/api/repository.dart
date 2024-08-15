@@ -1,8 +1,14 @@
 import 'package:stroy_baza/src/api/api_provider.dart';
+import 'package:stroy_baza/src/data_base/db_helper.dart';
+import 'package:stroy_baza/src/data_base/district_base.dart';
+import 'package:stroy_baza/src/data_base/region_base.dart';
 import 'package:stroy_baza/src/model/http_result.dart';
 
 class Repository {
   final ApiProvider _apiProvider = ApiProvider();
+  final DatabaseHelper _databaseHelper = DatabaseHelper();
+  final DistrictBaseHelper _districtBaseHelper = DistrictBaseHelper();
+  final RegionBaseHelper _regionBaseHelper = RegionBaseHelper();
 
   Future<HttpResult> login(username, password) async => await _apiProvider.login(username, password);
 
