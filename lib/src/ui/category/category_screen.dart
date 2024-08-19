@@ -55,10 +55,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     crossAxisCount: (orientation == Orientation.portrait) ? 2 : 3),
                 itemBuilder: (ctx,index){
                   return CategoryItem(onTap: (){
+                    List images = [];
+                    for(int i =0; i<data[index].productCounts.length;i++){
+                      images.add(data[index].productCounts[i].img1);
+                      images.add(data[index].productCounts[i].img2);
+                      images.add(data[index].productCounts[i].img3);
+                      images.add(data[index].productCounts[i].img4);
+                      images.add(data[index].productCounts[i].img5);
+                    }
                     Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                      return CategoryDetailScreen(data: data[index], index: index,);
+                      return CategoryDetailScreen(data: data[index], img: images,);
                     }));
-                  }, data: data[index], index: index,);
+                  }, data: data[index], index: index, img:data[index].img,);
                 });
           }
           return Center(

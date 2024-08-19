@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stroy_baza/src/model/parametrs/product_model.dart';
@@ -9,24 +10,18 @@ import 'package:stroy_baza/src/widgets/text_field_widget.dart';
 
 class CategoryDetailScreen extends StatefulWidget {
   final ProductResult data;
-  final int index;
-  const CategoryDetailScreen({super.key, required this.data, required this.index});
+  final List img;
+  const CategoryDetailScreen({super.key, required this.data, required this.img,});
 
   @override
   State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
 }
 class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
-  List img = [];
   int selectedIndex = 0;
   bool isButton = false;
   TextEditingController controller = TextEditingController();
   @override
   void initState() {
-    img.add(widget.data.productCounts[widget.index].img1);
-    img.add(widget.data.productCounts[widget.index].img2);
-    img.add(widget.data.productCounts[widget.index].img3);
-    img.add(widget.data.productCounts[widget.index].img4);
-    img.add(widget.data.productCounts[widget.index].img5);
     super.initState();
   }
   @override
@@ -50,17 +45,20 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         setState(() {});
                       },
                       scrollDirection: Axis.horizontal,
-                      itemCount: img.length,
+                      itemCount: widget.img.length,
                       itemBuilder: (ctx,index){
                       return Container(
                         margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 8),
                         width: 350.w,
                         height: 314.h,
                         decoration: BoxDecoration(
-                          color: Colors.blue,
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        child: Image.network(img[index],fit: BoxFit.cover,),
+                        child: CachedNetworkImage(imageUrl: widget.img[index],fit: BoxFit.cover,
+                          progressIndicatorBuilder: (context, url, downloadProgress) =>
+                              Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+                          errorWidget: (context, url, error) => const Center(child: Icon(Icons.image)),
+                        )
                       );
                     }),
                   ),
@@ -75,7 +73,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         Row(
                           children: [
                             Text("Qoldiq:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text(" ${widget.data.productCounts[widget.index].count}")
+                            Text(" ${widget.data.count}")
                           ],
                         ),
                         Row(
@@ -87,17 +85,17 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         Row(
                           children: [
                             Text("Razmeri:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text("${widget.data.productCounts[widget.index].color.name}")
+                            Text("${widget.data.productCounts}")
                           ],
                         ),
                       ],
                     ),
                   ),
-                  TextFieldWidget(controller: controller,prefix: Padding(padding: EdgeInsets.only(top: 14.w), child: Text("Oddiy: ${widget.data.prices[widget.index].unitPrice}",style: TextStyle(fontWeight: FontWeight.bold),),
+                  TextFieldWidget(controller: controller,prefix: Padding(padding: EdgeInsets.only(top: 14.w), child: Text("Oddiy: ${widget.data.unitPrice}",style: TextStyle(fontWeight: FontWeight.bold),),
                   ),),
                   TextFieldWidget(controller: controller,prefix: Padding(
                     padding: EdgeInsets.only(top: 14.w),
-                    child: Text("Optom: ${widget.data.prices[widget.index].wholesalePrice}",style: TextStyle(fontWeight: FontWeight.bold),),
+                    child: Text("Optom: ${widget.data.wholesalePrice}",style: TextStyle(fontWeight: FontWeight.bold),),
                   ),),
                   Padding(
                     padding: EdgeInsets.only(left: 16.0.w),

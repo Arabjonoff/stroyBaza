@@ -35,7 +35,7 @@ class DatabaseHelper {
           )
           ''');
 
-    /// Discrit Base
+    /// District Base
     await db.execute('''
           CREATE TABLE district (
             id INTEGER,
@@ -51,6 +51,7 @@ class DatabaseHelper {
             id INTEGER,
             count REAL,
             name TEXT,
+            image TEXT,
             price REAL
           )
           ''');

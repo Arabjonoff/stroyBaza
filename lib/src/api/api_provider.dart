@@ -25,8 +25,8 @@ class ApiProvider{
     }
   }
    Future<HttpResult> _patchRequest(String url, body,) async {
-    print(url);
-    print(body);
+    // print(url);
+    // print(body);
     try {
       final dynamic headers = await getReqHeader();
       http.Response response = await http.patch(
@@ -50,8 +50,8 @@ class ApiProvider{
     }
   }
    Future<HttpResult> _putRequest(String url, body,) async {
-    print(url);
-    print(body);
+    // print(url);
+    // print(body);
     try {
       final dynamic headers = await getReqHeader();
       http.Response response = await http.put(
@@ -75,8 +75,8 @@ class ApiProvider{
     }
   }
    Future<HttpResult> _deleteRequest(String url, body,) async {
-    print(url);
-    print(body);
+    // print(url);
+    // print(body);
     try {
       final dynamic headers = await getReqHeader();
       http.Response response = await http.delete(
@@ -100,8 +100,8 @@ class ApiProvider{
     }
   }
    Future<HttpResult> _postRequest(String url, body,) async {
-    print(url);
-    print(body);
+    // print(url);
+    // print(body);
     try {
       final dynamic headers = await getReqHeader();
       http.Response response = await http.post(
@@ -125,7 +125,7 @@ class ApiProvider{
     }
   }
    Future<HttpResult> _getRequest(String url,) async {
-    print(url);
+    // print(url);
     try {
       final dynamic headers = await getReqHeader();
       http.Response response = await http.get(
@@ -148,8 +148,8 @@ class ApiProvider{
     }
   }
    HttpResult _result(http.Response response) {
-    print(response.statusCode);
-    print(response.body);
+    // print(response.statusCode);
+    // print(response.body);
 
     if (response.statusCode >= 200 && response.statusCode <= 299) {
       return HttpResult(

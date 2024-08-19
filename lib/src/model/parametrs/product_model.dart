@@ -25,8 +25,12 @@ class ProductModel {
 }
 
 class ProductResult {
+  // Text("Optom: ${data.prices[index].wholesalePrice}",style: AppStyle.headLine4(AppColors.grey),),
+  // Text("Oddiy: ${data.prices[index].unitPrice}",style: AppStyle.headLine4(AppColors.grey),),
+  // Text("Qoldiq: ${data.productCounts[index].count}",style: AppStyle.headLine4(AppColors.grey),),
   int id;
   String name;
+  String img,wholesalePrice,unitPrice,count;
   Category category;
   Measurement measurement;
   List<Price> prices;
@@ -39,6 +43,10 @@ class ProductResult {
     required this.measurement,
     required this.prices,
     required this.productCounts,
+    this.img = '',
+    this.wholesalePrice = '',
+    this.unitPrice = '',
+    this.count = '',
   });
 
   factory ProductResult.fromJson(Map<String, dynamic> json) => ProductResult(
