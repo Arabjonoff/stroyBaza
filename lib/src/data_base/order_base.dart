@@ -31,7 +31,7 @@ class OrderBaseHelper {
     return data;
   }
 
-  Future<void> clearAddProduct()async{
+  Future<void> clear()async{
     var dbClient = await _dbProvider.db;
     await dbClient.rawQuery("DELETE FROM order");
   }

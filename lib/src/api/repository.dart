@@ -1,14 +1,28 @@
 import 'package:stroy_baza/src/api/api_provider.dart';
 import 'package:stroy_baza/src/data_base/db_helper.dart';
 import 'package:stroy_baza/src/data_base/district_base.dart';
+import 'package:stroy_baza/src/data_base/order_base.dart';
 import 'package:stroy_baza/src/data_base/region_base.dart';
 import 'package:stroy_baza/src/model/http_result.dart';
+import 'package:stroy_baza/src/model/order/order_model.dart';
 
 class Repository {
   final ApiProvider _apiProvider = ApiProvider();
   final DatabaseHelper _databaseHelper = DatabaseHelper();
   final DistrictBaseHelper _districtBaseHelper = DistrictBaseHelper();
   final RegionBaseHelper _regionBaseHelper = RegionBaseHelper();
+  final OrderBaseHelper _orderBaseHelper = OrderBaseHelper();
+
+
+
+  /// Data Base Bloc
+
+  /// Order Base
+  Future<int> saveOrderBase(OrderModel item) async => await _orderBaseHelper.saveOrder(item);
+  Future<List<OrderModel>> getOrderBase() async => await _orderBaseHelper.getOrder();
+  Future<void> clearOrderBase() async => await _orderBaseHelper.clear();
+
+
 
   Future<HttpResult> login(username, password) async => await _apiProvider.login(username, password);
 

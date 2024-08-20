@@ -18,7 +18,7 @@ class CategoryDetailScreen extends StatefulWidget {
 }
 class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   int selectedIndex = 0;
-  bool isButton = false;
+  bool isButton = true;
   TextEditingController controller = TextEditingController();
   @override
   void initState() {
