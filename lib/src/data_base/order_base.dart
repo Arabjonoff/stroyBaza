@@ -8,16 +8,15 @@ class OrderBaseHelper {
 
   Future<int> saveOrder(OrderModel item) async {
     var dbClient = await _dbProvider.db;
-    var res = dbClient.insert('order', item.toJson(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
-    return res;
+    var res = dbClient.insert('orders', item.toJson(),conflictAlgorithm: ConflictAlgorithm.replace);
+    return await res;
   }
 
   Future<List<OrderModel>> getOrder() async {
     var dbClient = await _dbProvider.db;
     List<OrderModel> data = <OrderModel>[];
     List<Map> list =
-        await dbClient.rawQuery("SELECT * FROM order ORDER BY id DESC");
+        await dbClient.rawQuery("SELECT * FROM orders ORDER BY id DESC");
     for (int i = 0; i < list.length; i++) {
       OrderModel orderModel = OrderModel(
         id: list[i]["id"],
@@ -33,6 +32,6 @@ class OrderBaseHelper {
 
   Future<void> clear()async{
     var dbClient = await _dbProvider.db;
-    await dbClient.rawQuery("DELETE FROM order");
+    await dbClient.rawQuery("DELETE FROM orders");
   }
 }

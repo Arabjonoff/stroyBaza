@@ -27,7 +27,7 @@ class RegionModel {
 class RegionResult {
   int id;
   String name;
-  bool isActive;
+  dynamic isActive;
 
   RegionResult({
     required this.id,
@@ -44,6 +44,6 @@ class RegionResult {
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
-    "is_active": isActive,
+    "is_active": isActive.toString(),
   };
 }

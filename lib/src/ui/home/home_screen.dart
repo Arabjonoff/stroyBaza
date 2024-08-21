@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:stroy_baza/src/bloc/district/district_bloc.dart';
 import 'package:stroy_baza/src/bloc/parametrs/category_bloc.dart';
-import 'package:stroy_baza/src/dialog/center_dialog.dart';
+import 'package:stroy_baza/src/bloc/region/region_bloc.dart';
 import 'package:stroy_baza/src/model/parametrs/category_model.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
@@ -23,6 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
   categoryBloc.getAllCategory();
+  districtBloc.getDistrictAll('');
+  regionBloc.getRegionAll();
   super.initState();
   }
   @override

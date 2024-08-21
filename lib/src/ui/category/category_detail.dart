@@ -1,12 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stroy_baza/src/api/repository.dart';
+import 'package:stroy_baza/src/bloc/cart/cart_bloc.dart';
+import 'package:stroy_baza/src/model/order/order_model.dart';
 import 'package:stroy_baza/src/model/parametrs/product_model.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
 import 'package:stroy_baza/src/ui/cart/cart_screen.dart';
 import 'package:stroy_baza/src/widgets/button_widget.dart';
 import 'package:stroy_baza/src/widgets/text_field_widget.dart';
+import 'package:badges/badges.dart' as badges;
 
 class CategoryDetailScreen extends StatefulWidget {
   final ProductResult data;
@@ -17,11 +21,13 @@ class CategoryDetailScreen extends StatefulWidget {
   State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
 }
 class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
-  int selectedIndex = 0;
+  int selectedIndex = 0,count = 0;
   bool isButton = true;
+  final Repository _repository = Repository();
   TextEditingController controller = TextEditingController();
   @override
   void initState() {
+    cartBloc.getCartAll();
     super.initState();
   }
   @override
@@ -123,7 +129,15 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
               ),
             ),
           ),
-          if (isButton) ButtonWidget(height: 64, onTap: (){
+          if (isButton) ButtonWidget(height: 64, onTap: ()async{
+            await cartBloc.getCartAll();
+            OrderModel item = OrderModel(
+                id: widget.data.id,
+                count: 1,
+                price: widget.data.prices[0].wholesalePrice,
+                image: 'image',
+                name: 'name');
+            await _repository.saveOrderBase(item);
             setState(() {
               isButton = false;
             });
@@ -148,6 +162,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                       setState(() {
                         isButton = true;
                       });
+
                     },
                 ),
                 SizedBox(width: 4.w,),
@@ -158,32 +173,48 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                   ),
                   child: Row(
                     children: [
-                      Container(
-                        width: 54.w,
-                        height: double.infinity,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),topLeft: Radius.circular(15)),
-                          border: Border(
-                            right: BorderSide(
-                                color: Colors.black
-                            )
-                          )
-                        ),
-                        child: const Icon(Icons.remove,size: 34,),
-                      ),
-                      Expanded(child: Center(child: Text('12',style: AppStyle.headLine2(Colors.black),))),
-                      Container(
-                        width: 54.w,
-                        height: double.infinity,
-                        decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(bottomRight: Radius.circular(15),topRight: Radius.circular(15)),
+                      InkWell(
+                        onTap: (){
+                          if(count <=1){
+
+                          }else{
+                            count --;
+                          }
+                          setState(() {});
+                        },
+                        child: Container(
+                          width: 54.w,
+                          height: double.infinity,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),topLeft: Radius.circular(15)),
                             border: Border(
-                                left: BorderSide(
-                                    color: Colors.black
-                                )
+                              right: BorderSide(
+                                  color: Colors.black
+                              )
                             )
+                          ),
+                          child: const Icon(Icons.remove,size: 34,),
                         ),
-                        child: const Icon(Icons.add,size: 34,),
+                      ),
+                      Expanded(child: Center(child: Text('$count',style: AppStyle.headLine2(Colors.black),))),
+                      InkWell(
+                        onTap: (){
+                          count ++;
+                          setState(() {});
+                        },
+                        child: Container(
+                          width: 54.w,
+                          height: double.infinity,
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(bottomRight: Radius.circular(15),topRight: Radius.circular(15)),
+                              border: Border(
+                                  left: BorderSide(
+                                      color: Colors.black
+                                  )
+                              )
+                          ),
+                          child: const Icon(Icons.add,size: 34,),
+                        ),
                       ),
                     ],
                   ),
@@ -195,15 +226,33 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                       return CartScreen();
                     }));
                   },
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: double.infinity,
-                    width: 64.r,
-                    decoration: BoxDecoration(
-                        color: AppColors.blue,
-                        borderRadius: BorderRadius.circular(10)
+                  child: badges.Badge(
+                    position: badges.BadgePosition.topEnd(top: -20.r, end: -8.r),
+                    showBadge: true,
+                    ignorePointer: false,
+                    badgeContent: StreamBuilder<List<OrderModel>>(
+                      stream: cartBloc.getCartStream,
+                      builder: (context, snapshot) {
+                        if(snapshot.hasData){
+                          return Text(snapshot.data!.length.toString(),style: TextStyle(color: Colors.white,fontSize: 22),);
+                        }
+                        return const Text('0',style: TextStyle(color: Colors.white,fontSize: 22),);
+                      }
                     ),
-                    child: const Icon(Icons.shopping_bag_rounded,size: 34,color: Colors.white,),
+                    badgeStyle: const badges.BadgeStyle(
+                      badgeColor: Colors.red,
+                      padding: EdgeInsets.all(8),
+                    ),
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: double.infinity,
+                      width: 64.r,
+                      decoration: BoxDecoration(
+                          color: AppColors.blue,
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: const Icon(Icons.shopping_bag_rounded,size: 34,color: Colors.white,),
+                    ),
                   ),
                 ),
               ],
@@ -228,7 +277,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
           boxShadow: [
             isActive
                 ? BoxShadow(
-              color: AppColors.black,
+              color: AppColors.blue,
               blurRadius: 4.0,
               spreadRadius: 1.0,
               offset: const Offset(
@@ -241,7 +290,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
             )
           ],
           shape: BoxShape.circle,
-          color: isActive ? AppColors.black : const Color(0XFFEAEAEA),
+          color: isActive ? AppColors.blue : const Color(0XFFEAEAEA),
         ),
       ),
     );

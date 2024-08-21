@@ -1,7 +1,7 @@
 class OrderModel {
   int id;
-  int count;
-  int price;
+  num count;
+  dynamic price;
   String name;
   String image;
 

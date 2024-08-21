@@ -32,7 +32,7 @@ class DistrictResult {
   int id;
   String name;
   int clametor;
-  bool isActive;
+  dynamic isActive;
   int region;
 
   DistrictResult({
@@ -55,7 +55,7 @@ class DistrictResult {
     "id": id,
     "name": name,
     "clametor": clametor,
-    "is_active": isActive,
+    "is_active": isActive.toString(),
     "region": region,
   };
 }

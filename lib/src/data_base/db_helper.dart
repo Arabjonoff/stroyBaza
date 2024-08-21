@@ -19,7 +19,7 @@ class DatabaseHelper {
 
   initDb() async {
     String databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'n_savdo');
+    String path = join(databasesPath, 'stroybaza');
     var db = await openDatabase(path, version: 1, onCreate: _onCreate);
     return db;
   }
@@ -29,7 +29,7 @@ class DatabaseHelper {
     /// Region Base
     await db.execute('''
           CREATE TABLE region (
-            id INTEGER,
+            id INTEGER PRIMARY KEY,
             name TEXT,
             is_active TEXT
           )
@@ -38,23 +38,25 @@ class DatabaseHelper {
     /// District Base
     await db.execute('''
           CREATE TABLE district (
-            id INTEGER,
+            id INTEGER PRIMARY KEY,
             name TEXT,
             clametor INTEGER,
+            is_active TEXT,
             region INTEGER
           )
           ''');
 
     /// Order Base
-    await db.execute('''
-          CREATE TABLE order (
-            id INTEGER,
-            count REAL,
-            name TEXT,
-            image TEXT,
-            price REAL
-          )
-          ''');
+    await db.execute(
+        '''
+      CREATE TABLE orders (
+        id INTEGER PRIMARY KEY,
+        count REAL,
+        name TEXT,
+        image TEXT,
+        price REAL
+      )
+       ''');
 
     /// Client Base
     await db.execute('''
@@ -73,7 +75,7 @@ class DatabaseHelper {
 
   Future<void> deleteDatabase()async{
     String databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'n_savdo');
+    String path = join(databasesPath, 'stroybaza');
     return databaseFactory.deleteDatabase(path);
   }
 }

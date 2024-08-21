@@ -15,11 +15,11 @@ class ApiProvider{
     String token = preferences.getString("token")??"";
     if (token == "") {
       return {
-        "Accept": "application/json",
+        "Accept": "application/json; charset=UTF-8",
       };
     } else {
       return {
-        "Accept": "application/json",
+        "Accept": "application/json; charset=UTF-8",
         'Authorization': 'Token $token',
       };
     }
@@ -100,8 +100,8 @@ class ApiProvider{
     }
   }
    Future<HttpResult> _postRequest(String url, body,) async {
-    // print(url);
-    // print(body);
+    print(url);
+    print(body);
     try {
       final dynamic headers = await getReqHeader();
       http.Response response = await http.post(
@@ -148,8 +148,8 @@ class ApiProvider{
     }
   }
    HttpResult _result(http.Response response) {
-    // print(response.statusCode);
-    // print(response.body);
+    print(response.statusCode);
+    print(response.body);
 
     if (response.statusCode >= 200 && response.statusCode <= 299) {
       return HttpResult(
@@ -217,7 +217,7 @@ class ApiProvider{
   }
   Future<HttpResult> clientAdd(Map data)async{
     String url = "${_baseUrl}app/clients/";
-    return await _postRequest(url, data);
+    return await _postRequest(url, json.encode(data));
   }
   Future<HttpResult> clientDetail(id)async{
     String url = "${_baseUrl}app/clients/$id/";

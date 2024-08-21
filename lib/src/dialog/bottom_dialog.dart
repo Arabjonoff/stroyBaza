@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class BottomDialog{
-  static showBottomDialog(BuildContext context,Widget screen){
+  static showBottomDialog(BuildContext context,Widget screen,double height){
     showModalBottomSheet(
       isScrollControlled: true,
         context: context, builder: (ctx){
       return Container(
-        height: 600.h,
+        height: height.h,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(

@@ -50,16 +50,22 @@ class _LoginScreenState extends State<LoginScreen> {
           ButtonWidget(height: 64, onTap: ()async{
             CenterDialog.showLoadingDialog(context);
             HttpResult res = await _repository.login(controllerPhone.text, controllerPassword.text);
-            if(res.result["success"] == true){
-              CacheService.token(res.result["token"]);
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx){
-                return const MainScreen();
-              }));
-              Navigator.popUntil(context, (route) => route.isFirst);
-            }
-            else{
+            try{
+              if(res.result["success"] == true){
+                CacheService.token(res.result["token"]);
+                Navigator.popUntil(context, (route) => route.isFirst);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx){
+                  return const MainScreen();
+                }));
+              }
+              else{
+                if(context.mounted)Navigator.pop(context);
+                ToastDialog.showErrorToast(context, res.result["status"].toString());
+              }
+            }catch(e){
               if(context.mounted)Navigator.pop(context);
-              ToastDialog.showErrorToast(context, res.result["status"].toString());
+              // ignore: use_build_context_synchronously
+              ToastDialog.showErrorToast(context, e.toString());
             }
           }, text: "Tasdiqlash", color: AppColors.blue, textColor: Colors.white),
           SizedBox(height: 34.h,)

@@ -3,8 +3,10 @@ import 'package:stroy_baza/src/data_base/db_helper.dart';
 import 'package:stroy_baza/src/data_base/district_base.dart';
 import 'package:stroy_baza/src/data_base/order_base.dart';
 import 'package:stroy_baza/src/data_base/region_base.dart';
+import 'package:stroy_baza/src/model/district/discrit_model.dart';
 import 'package:stroy_baza/src/model/http_result.dart';
 import 'package:stroy_baza/src/model/order/order_model.dart';
+import 'package:stroy_baza/src/model/region/region_model.dart';
 
 class Repository {
   final ApiProvider _apiProvider = ApiProvider();
@@ -22,6 +24,15 @@ class Repository {
   Future<List<OrderModel>> getOrderBase() async => await _orderBaseHelper.getOrder();
   Future<void> clearOrderBase() async => await _orderBaseHelper.clear();
 
+  /// Regions Base
+  Future<int> saveRegionBase(RegionResult item) async => await _regionBaseHelper.saveRegion(item);
+  Future<List<RegionResult>> getRegionBase() async => await _regionBaseHelper.getRegion();
+  Future<void> clearRegionBase() async => await _regionBaseHelper.clear();
+
+  /// District
+  Future<int> saveDistrictBase(DistrictResult item) async => await _districtBaseHelper.saveDistrict(item);
+  Future<List<DistrictResult>> getDistrictBase(obj) async => await _districtBaseHelper.getDistrict(obj);
+  Future<void> clearDistrictBase() async => await _districtBaseHelper.clear();
 
 
   Future<HttpResult> login(username, password) async => await _apiProvider.login(username, password);
