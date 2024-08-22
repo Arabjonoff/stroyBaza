@@ -4,6 +4,7 @@ import 'package:stroy_baza/src/api/repository.dart';
 import 'package:stroy_baza/src/dialog/bottom_dialog.dart';
 import 'package:stroy_baza/src/model/http_result.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
+import 'package:stroy_baza/src/ui/client/map/map_screen.dart';
 import 'package:stroy_baza/src/ui/district/district_screen.dart';
 import 'package:stroy_baza/src/ui/region/region_screen.dart';
 import 'package:stroy_baza/src/utils/rx_bus.dart';
@@ -52,7 +53,9 @@ class _AddClientScreenState extends State<AddClientScreen> {
                     BottomDialog.showBottomDialog(context,  DistrictScreen(obj: controllerRegionId.text,),300);
                   },readOnly: true,),
                   TextFieldWidget(controller: controllerPhone,hintText: "Telfon",),
-                  TextFieldWidget(controller: controllerDistrict,hintText: "Joylashuv",suffixIcon: const Icon(Icons.location_on,size: 34,),onTap: (){},readOnly: true,),
+                  TextFieldWidget(controller: controllerLongitude,hintText: "Joylashuv",suffixIcon: const Icon(Icons.location_on,size: 34,),onTap: (){
+                    BottomDialog.showBottomDialog(context, MapScreen(), 650);
+                  },readOnly: true,),
                 ],
               ),
             ),
@@ -60,13 +63,13 @@ class _AddClientScreenState extends State<AddClientScreen> {
           SizedBox(height: 14.h,),
           ButtonWidget(height: 56, onTap: ()async{
             Map data = {
-              "district":controllerDistrict.text,
+              "district":1,
               "fio":controllerName.text,
               "phone":controllerPhone.text,
               "telegram_id":"11223365471",
               "address":"namangan",
-              "latitude":controllerLatitude.text,
-              "longitude":controllerLongitude.text
+              "latitude":3,
+              "longitude":33
 
             };
             HttpResult res = await _repository.clientAdd(data);

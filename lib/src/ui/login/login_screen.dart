@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
               }
               else{
                 if(context.mounted)Navigator.pop(context);
-                ToastDialog.showErrorToast(context, res.result["status"].toString());
+                ToastDialog.showErrorToast(context, res.result["error"].toString());
               }
             }catch(e){
               if(context.mounted)Navigator.pop(context);

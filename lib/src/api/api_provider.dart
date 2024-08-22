@@ -8,19 +8,20 @@ import '../model/http_result.dart';
 import 'package:http/http.dart' as http;
 
 class ApiProvider{
-  final String _baseUrl = "https://stroybaza.usgroup.uz/";
+  final String _baseUrl = "http://185.237.165.236/";
   static const _duration = Duration(seconds: 60);
   getReqHeader() async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String token = preferences.getString("token")??"";
     if (token == "") {
       return {
-        "Accept": "application/json; charset=UTF-8",
+        "Accept": "application/json",
       };
     } else {
       return {
-        "Accept": "application/json; charset=UTF-8",
-        'Authorization': 'Token $token',
+      "Accept": "application/json; charset=utf-8",
+      "Content-Type": "application/json;odata=verbose;charset=utf-8",
+      'Authorization': 'Token $token',
       };
     }
   }
