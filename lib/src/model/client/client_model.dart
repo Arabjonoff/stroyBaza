@@ -7,7 +7,7 @@ String clientModelToJson(ClientModel data) => json.encode(data.toJson());
 
 class ClientModel {
   bool success;
-  List<Datum> data;
+  List<ClientResult> data;
 
   ClientModel({
     required this.success,
@@ -16,7 +16,7 @@ class ClientModel {
 
   factory ClientModel.fromJson(Map<String, dynamic> json) => ClientModel(
     success: json["success"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<ClientResult>.from(json["data"].map((x) => ClientResult.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -25,7 +25,7 @@ class ClientModel {
   };
 }
 
-class Datum {
+class ClientResult {
   int id;
   int district;
   String fio;
@@ -42,7 +42,7 @@ class Datum {
   num uzsSum;
   num usdSum;
 
-  Datum({
+  ClientResult({
     required this.id,
     required this.district,
     required this.fio,
@@ -60,7 +60,7 @@ class Datum {
     required this.usdSum,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory ClientResult.fromJson(Map<String, dynamic> json) => ClientResult(
     id: json["id"]??0,
     district: json["district"]??0,
     fio: json["fio"]??"",
@@ -88,11 +88,5 @@ class Datum {
     "address": address,
     "latitude": latitude,
     "longitude": longitude,
-    "uzs_acc": uzsAcc,
-    "usd_acc": usdAcc,
-    "uzs_start": uzsStart,
-    "usd_start": usdStart,
-    "uzs_sum": uzsSum,
-    "usd_sum": usdSum,
   };
 }

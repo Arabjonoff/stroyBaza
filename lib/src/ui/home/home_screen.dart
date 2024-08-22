@@ -11,6 +11,7 @@ import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
 import 'package:stroy_baza/src/ui/category/category_screen.dart';
 import 'package:stroy_baza/src/ui/client/add_client.dart';
+import 'package:stroy_baza/src/ui/client/client.dart';
 import 'package:stroy_baza/src/ui/search/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -47,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
           GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                return AddClientScreen();
+                return ClientScreen();
               }));
             },
             child: Container(

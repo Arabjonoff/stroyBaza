@@ -1,8 +1,10 @@
 import 'package:stroy_baza/src/api/api_provider.dart';
+import 'package:stroy_baza/src/data_base/client_base.dart';
 import 'package:stroy_baza/src/data_base/db_helper.dart';
 import 'package:stroy_baza/src/data_base/district_base.dart';
 import 'package:stroy_baza/src/data_base/order_base.dart';
 import 'package:stroy_baza/src/data_base/region_base.dart';
+import 'package:stroy_baza/src/model/client/client_model.dart';
 import 'package:stroy_baza/src/model/district/discrit_model.dart';
 import 'package:stroy_baza/src/model/http_result.dart';
 import 'package:stroy_baza/src/model/order/order_model.dart';
@@ -14,6 +16,7 @@ class Repository {
   final DistrictBaseHelper _districtBaseHelper = DistrictBaseHelper();
   final RegionBaseHelper _regionBaseHelper = RegionBaseHelper();
   final OrderBaseHelper _orderBaseHelper = OrderBaseHelper();
+  final ClientBaseHelper _clientBaseHelper = ClientBaseHelper();
 
 
 
@@ -28,6 +31,12 @@ class Repository {
   Future<int> saveRegionBase(RegionResult item) async => await _regionBaseHelper.saveRegion(item);
   Future<List<RegionResult>> getRegionBase() async => await _regionBaseHelper.getRegion();
   Future<void> clearRegionBase() async => await _regionBaseHelper.clear();
+
+
+  /// Client Base
+  Future<int> saveClient(ClientResult item) async => await _clientBaseHelper.saveClient(item);
+  Future<List<ClientResult>> getClientBase(obj) async => await _clientBaseHelper.getClient(obj);
+  Future<void> clearClientBase() async => await _clientBaseHelper.clear();
 
   /// District
   Future<int> saveDistrictBase(DistrictResult item) async => await _districtBaseHelper.saveDistrict(item);

@@ -151,7 +151,6 @@ class ApiProvider{
    HttpResult _result(http.Response response) {
     print(response.statusCode);
     print(response.body);
-
     if (response.statusCode >= 200 && response.statusCode <= 299) {
       return HttpResult(
         statusCode: response.statusCode,
@@ -213,7 +212,7 @@ class ApiProvider{
 
   /// Clients
   Future<HttpResult> clientList()async{
-    String url = "${_baseUrl}app/clients/?saved=true";
+    String url = "${_baseUrl}app/clients/";
     return await _getRequest(url,);
   }
   Future<HttpResult> clientAdd(Map data)async{
