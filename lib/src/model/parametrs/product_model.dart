@@ -30,7 +30,7 @@ class ProductResult {
   // Text("Qoldiq: ${data.productCounts[index].count}",style: AppStyle.headLine4(AppColors.grey),),
   int id;
   String name;
-  String img,wholesalePrice,unitPrice,count;
+  String img,wholesalePrice,unitPrice,count,size;
   Category category;
   Measurement measurement;
   List<Price> prices;
@@ -47,6 +47,7 @@ class ProductResult {
     this.wholesalePrice = '',
     this.unitPrice = '',
     this.count = '',
+    this.size = '',
   });
 
   factory ProductResult.fromJson(Map<String, dynamic> json) => ProductResult(

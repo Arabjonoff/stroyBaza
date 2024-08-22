@@ -78,20 +78,20 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                       children: [
                         Row(
                           children: [
-                            Text("Qoldiq:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text(" ${widget.data.count}")
+                            Text("Qoldiq: ",style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text("${widget.data.count}")
                           ],
                         ),
                         Row(
                           children: [
-                            Text("Kategoriyasi:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text(" ${widget.data.category.name}")
+                            Text("Kategoriyasi: ",style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text("${widget.data.category.name}")
                           ],
                         ),
                         Row(
                           children: [
-                            Text("Razmeri:",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text("${widget.data.productCounts}")
+                            Text("Razmeri: ",style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text(widget.data.size)
                           ],
                         ),
                       ],

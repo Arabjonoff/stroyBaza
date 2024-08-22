@@ -18,6 +18,7 @@ class ProductBloc{
           data.data[i].wholesalePrice =  data.data[i].wholesalePrice.toString();
           data.data[i].unitPrice =  data.data[i].unitPrice;
           data.data[i].count =  data.data[i].productCounts[j].count;
+          data.data[i].size =  data.data[i].productCounts[j].size.name;
         }
         for(int k =0; k<data.data[i].prices.length;k++){
           data.data[i].wholesalePrice = data.data[i].prices[k].wholesalePrice;

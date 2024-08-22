@@ -54,7 +54,9 @@ class _AddClientScreenState extends State<AddClientScreen> {
                   },readOnly: true,),
                   TextFieldWidget(controller: controllerPhone,hintText: "Telfon",),
                   TextFieldWidget(controller: controllerLongitude,hintText: "Joylashuv",suffixIcon: const Icon(Icons.location_on,size: 34,),onTap: (){
-                    BottomDialog.showBottomDialog(context, MapScreen(), 650);
+                    Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                      return const MapScreen();
+                    }));
                   },readOnly: true,),
                 ],
               ),

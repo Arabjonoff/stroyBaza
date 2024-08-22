@@ -96,16 +96,38 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 134.h,
                         decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.fitWidth,
+                            image: NetworkImage("http://185.237.165.236"+data[index].img),
+                          ),
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(
                               color: AppColors.grey.withOpacity(0.3),
-                              blurRadius: 5
+                              blurRadius: 5,
                             )
                           ],
                             borderRadius: BorderRadius.circular(15)
                         ),
-                        child: Text(data[index].name,style: AppStyle.headLine2(Colors.black),),
+                        child: Stack(
+                          children: [
+                            Text(data[index].name,style: AppStyle.headLine2(Colors.black),),
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 10,
+                              decoration: const BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black,
+                                        blurRadius: 50,
+                                        blurStyle: BlurStyle.solid
+                                    )
+                                  ],
+
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     );
                   });
