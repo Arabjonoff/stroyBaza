@@ -21,8 +21,13 @@ class ProductBloc{
           data.data[i].size =  data.data[i].productCounts[j].size.name;
         }
         for(int k =0; k<data.data[i].prices.length;k++){
-          data.data[i].wholesalePrice = data.data[i].prices[k].wholesalePrice;
-          data.data[i].unitPrice = data.data[i].prices[k].unitPrice;
+          if(data.data[i].prices[0].unitPrice == '0.00'){
+            data.data[i].wholesalePrice = data.data[i].prices[1].wholesalePrice;
+            data.data[i].unitPrice = data.data[i].prices[1].unitPrice;
+          }else{
+            data.data[i].wholesalePrice = data.data[i].prices[0].wholesalePrice;
+            data.data[i].unitPrice = data.data[i].prices[0].unitPrice;
+          }
         }
       }
       _fetchProductInfo.sink.add(data);

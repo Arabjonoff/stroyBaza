@@ -126,7 +126,7 @@ class ApiProvider{
     }
   }
    Future<HttpResult> _getRequest(String url,) async {
-    // print(url);
+    print(url);
     try {
       final dynamic headers = await getReqHeader();
       http.Response response = await http.get(
