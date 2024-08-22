@@ -23,5 +23,9 @@ class ClientBloc{
       _fetchClientInfo.sink.add(clientBase);
     }
   }
+  clear()async{
+    await _repository.clearClientBase();
+    getAllClient("");
+  }
 }
 final clientBloc = ClientBloc();

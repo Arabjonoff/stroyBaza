@@ -8,8 +8,7 @@ class ClientBaseHelper {
 
   Future<int> saveClient(ClientResult item) async {
     var dbClient = await dbProvider.db;
-    var res = dbClient.insert('clients', item.toJson(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    var res = dbClient.insert('clients', item.toJson(),conflictAlgorithm: ConflictAlgorithm.replace);
     print(await res);
     return res;
   }
