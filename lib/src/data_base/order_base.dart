@@ -30,6 +30,13 @@ class OrderBaseHelper {
     return data;
   }
 
+  Future<int> deleteOrder(id) async {
+    var dbClient = await _dbProvider.db;
+    var res = dbClient.delete('orders',where: 'id=?',whereArgs: [id]);
+    return await res;
+  }
+
+
   Future<void> clear()async{
     var dbClient = await _dbProvider.db;
     await dbClient.rawQuery("DELETE FROM orders");

@@ -24,6 +24,7 @@ class Repository {
 
   /// Order Base
   Future<int> saveOrderBase(OrderModel item) async => await _orderBaseHelper.saveOrder(item);
+  Future<int> deleteOrder(item) async => await _orderBaseHelper.deleteOrder(item);
   Future<List<OrderModel>> getOrderBase() async => await _orderBaseHelper.getOrder();
   Future<void> clearOrderBase() async => await _orderBaseHelper.clear();
 

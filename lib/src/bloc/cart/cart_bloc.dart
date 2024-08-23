@@ -6,10 +6,17 @@ class CartBloc {
   final Repository _repository = Repository();
   final _fetchCartInfo = PublishSubject<List<OrderModel>>();
   Stream<List<OrderModel>> get getCartStream => _fetchCartInfo.stream;
-
+  saveCart(item)async{
+    await _repository.saveOrderBase(item);
+    await getCartAll();
+  }
   getCartAll()async{
     List<OrderModel> data = await _repository.getOrderBase();
     _fetchCartInfo.sink.add(data);
+  }
+  delete(id)async{
+    await _repository.deleteOrder(id);
+    await getCartAll();
   }
 }
 final cartBloc = CartBloc();

@@ -21,7 +21,7 @@ class CategoryDetailScreen extends StatefulWidget {
   State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
 }
 class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
-  int selectedIndex = 0,count = 0;
+  int selectedIndex = 0,count = 1;
   bool isButton = true;
   final Repository _repository = Repository();
   TextEditingController controller = TextEditingController();
@@ -130,14 +130,13 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
             ),
           ),
           if (isButton) ButtonWidget(height: 64, onTap: ()async{
-            await cartBloc.getCartAll();
             OrderModel item = OrderModel(
                 id: widget.data.id,
                 count: 1,
                 price: 2,
                 image: 'image',
                 name: 'name');
-            await _repository.saveOrderBase(item);
+            cartBloc.saveCart(item);
             setState(() {
               isButton = false;
             });
@@ -159,6 +158,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                     child: const Icon(Icons.clear,size: 34,color: Colors.white,),
                   ),
                     onTap: (){
+                    cartBloc.delete(widget.data.id);
                       setState(() {
                         isButton = true;
                       });
@@ -234,9 +234,9 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                       stream: cartBloc.getCartStream,
                       builder: (context, snapshot) {
                         if(snapshot.hasData){
-                          return Text(snapshot.data!.length.toString(),style: TextStyle(color: Colors.white,fontSize: 22),);
+                          return Text(snapshot.data!.length.toString(),style: const TextStyle(color: Colors.white,fontSize: 22),);
                         }
-                        return const Text('0',style: TextStyle(color: Colors.white,fontSize: 22),);
+                        return const Text('1',style: TextStyle(color: Colors.white,fontSize: 22),);
                       }
                     ),
                     badgeStyle: const badges.BadgeStyle(
