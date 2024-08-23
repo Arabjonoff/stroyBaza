@@ -82,7 +82,7 @@ class CenterDialog {
             width: 80.r,
             height: 80.r,
             child: Center(
-              child: LoadingAnimationWidget.beat(
+              child: LoadingAnimationWidget.waveDots(
                 color: AppColors.greenAccent,
                 size: 80.r,
               ),

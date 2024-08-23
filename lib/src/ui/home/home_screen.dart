@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         }));
                       },
                       child: Container(
-                        padding: EdgeInsets.only(top: 12.r,left: 0.r),
+                        padding: EdgeInsets.only(top: 0.r,left: 0.r),
                         margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 4.h),
                         width: MediaQuery.of(context).size.width,
                         height: 134.h,
@@ -112,51 +112,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         child: Stack(
                           children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: double.infinity,
+                              decoration:  BoxDecoration(
+                                gradient: const LinearGradient(
+                                    colors: [
+                                      Colors.transparent,
+                                      Colors.black,
+                                    ],
+                                    stops: [0.0, 9.0],
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                    tileMode: TileMode.clamp
+                                ),
+                                borderRadius: BorderRadius.circular(15)
+                              ),
+                            ),
                             Padding(
-                              padding: EdgeInsets.only(left: 16.0.w),
-                              child: Text(data[index].name,style: AppStyle.headLine2(Colors.black),),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 5,
-                              decoration: const BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black,
-                                        blurRadius: 30,
-                                        blurStyle: BlurStyle.solid
-                                    )
-                                  ],
-
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 5,
-                              decoration: const BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black,
-                                        blurRadius: 30,
-                                        blurStyle: BlurStyle.solid
-                                    )
-                                  ],
-
-                              ),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 5,
-                              decoration: const BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black,
-                                        blurRadius: 30,
-                                        blurStyle: BlurStyle.solid
-                                    )
-                                  ],
-
-                              ),
+                              padding: EdgeInsets.only(left: 16.0.w,top: 16.r),
+                              child: Text(data[index].name,style: AppStyle.headLine2(Colors.white),),
                             ),
                           ],
                         ),

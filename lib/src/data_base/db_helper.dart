@@ -69,6 +69,12 @@ class DatabaseHelper {
             telegram_id TEXT,
             address TEXT,
             latitude REAL,
+            uzs_acc REAL,
+            usd_acc REAL,
+            uzs_start REAL,
+            usd_start REAL,
+            uzs_sum REAL,
+            usd_sum REAL,
             longitude REAL
           )
           ''');

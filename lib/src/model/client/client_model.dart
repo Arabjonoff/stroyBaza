@@ -88,5 +88,11 @@ class ClientResult {
     "address": address,
     "latitude": latitude,
     "longitude": longitude,
+    "uzs_acc": uzsAcc,
+    "usd_acc": usdAcc,
+    "uzs_start": uzsStart,
+    "usd_start": usdStart,
+    "uzs_sum": uzsSum,
+    "usd_sum": usdSum,
   };
 }

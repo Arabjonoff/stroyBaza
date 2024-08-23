@@ -15,6 +15,7 @@ class ClientScreen extends StatefulWidget {
 }
 
 class _ClientScreenState extends State<ClientScreen> {
+  int index = 0;
   @override
   void initState() {
     clientBloc.getAllClient('');
@@ -26,11 +27,11 @@ class _ClientScreenState extends State<ClientScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Mijozlar',
+          title:  Text(
+            index==0?'Mijozlar':"Manzillar",
           ),
           actions: [
-            IconButton(onPressed: (){}, icon: Icon(Icons.bookmark,color: AppColors.blue,))
+            index==1?const SizedBox():IconButton(onPressed: (){}, icon: Icon(Icons.bookmark,color: AppColors.blue,))
           ],
           centerTitle: true,
           bottom: PreferredSize(
@@ -46,6 +47,10 @@ class _ClientScreenState extends State<ClientScreen> {
                   color: AppColors.grey.withOpacity(0.4),
                 ),
                 child: TabBar(
+                  onTap: (i){
+                    index = i;
+                    setState(() {});
+                  },
                   indicatorSize: TabBarIndicatorSize.tab,
                   dividerColor: Colors.transparent,
                   indicator: const BoxDecoration(
