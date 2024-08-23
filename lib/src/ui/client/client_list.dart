@@ -69,7 +69,7 @@ class _ClientListScreenState extends State<ClientListScreen> {
                                     Text("Manzil: ${data[index].address}",style: AppStyle.headLine4(Colors.grey),),
                                   ],
                                 )),
-                                IconButton(onPressed: (){}, icon: Icon(Icons.flag))
+                                IconButton(onPressed: (){}, icon: Icon(Icons.bookmark_border))
                               ],
                             ),
                           );

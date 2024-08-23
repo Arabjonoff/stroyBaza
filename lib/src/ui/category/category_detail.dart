@@ -134,7 +134,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
             OrderModel item = OrderModel(
                 id: widget.data.id,
                 count: 1,
-                price: widget.data.prices[0].wholesalePrice,
+                price: 2,
                 image: 'image',
                 name: 'name');
             await _repository.saveOrderBase(item);

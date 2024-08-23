@@ -27,8 +27,11 @@ class _ClientScreenState extends State<ClientScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Buyurtmalar',
+            'Mijozlar',
           ),
+          actions: [
+            IconButton(onPressed: (){}, icon: Icon(Icons.bookmark,color: AppColors.blue,))
+          ],
           centerTitle: true,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(40),
