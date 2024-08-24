@@ -41,6 +41,7 @@ class ClientResult {
   num usdStart;
   num uzsSum;
   num usdSum;
+  int bookmark;
 
   ClientResult({
     required this.id,
@@ -58,6 +59,7 @@ class ClientResult {
     required this.usdStart,
     required this.uzsSum,
     required this.usdSum,
+    this.bookmark = 0,
   });
 
   factory ClientResult.fromJson(Map<String, dynamic> json) => ClientResult(
@@ -94,5 +96,6 @@ class ClientResult {
     "usd_start": usdStart,
     "uzs_sum": uzsSum,
     "usd_sum": usdSum,
+    "bookmark": bookmark,
   };
 }

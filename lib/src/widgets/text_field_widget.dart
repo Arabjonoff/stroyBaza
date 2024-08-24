@@ -8,10 +8,10 @@ import 'package:stroy_baza/src/theme/app_style.dart';
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final String hintText,placeholder;
-  final bool keyboardType,readOnly,isPlaceholder;
+  final bool keyboardType,readOnly,isPlaceholder,isBorder;
   final Widget? suffixIcon,prefix;
   final Function()? onTap;
-  const TextFieldWidget({super.key, required this.controller,this.hintText = '',this.keyboardType =false,this.readOnly =false,this.isPlaceholder =false,this.suffixIcon, this.prefix, this.onTap,this.placeholder = ''});
+  const TextFieldWidget({super.key, required this.controller,this.hintText = '',this.keyboardType =false,this.readOnly =false,this.isPlaceholder =false,this.suffixIcon, this.prefix, this.onTap,this.placeholder = '',this.isBorder = false});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class TextFieldWidget extends StatelessWidget {
             height: 64.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: AppColors.grey)
+              border: Border.all(color: isBorder?AppColors.blue:AppColors.black)
             ),
             child: TextField(
               onTap: onTap,

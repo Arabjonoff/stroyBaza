@@ -6,8 +6,9 @@ class ButtonWidget extends StatelessWidget {
   final double height;
   final Function() onTap;
   final String text;
+  final bool isActive;
   final Color color,textColor;
-  const ButtonWidget({super.key, required this.height, required this.onTap, required this.text, required this.color, required this.textColor});
+  const ButtonWidget({super.key, required this.height,this.isActive=true, required this.onTap, required this.text, required this.color, required this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ButtonWidget extends StatelessWidget {
         height: height.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: color
+          color: isActive?color:Colors.grey
         ),
         child: Text(text,style: AppStyle.headLine2(textColor),),
       ),

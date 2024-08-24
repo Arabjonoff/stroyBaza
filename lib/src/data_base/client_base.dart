@@ -13,11 +13,18 @@ class ClientBaseHelper {
     return res;
   }
 
+  Future<int> updateClient(ClientResult item) async {
+    var dbClient = await dbProvider.db;
+    var res = dbClient.update("clients",item.toJson(),where: 'id=?',whereArgs: [item.id]);
+    print(await res);
+    return res;
+  }
+
   Future<List<ClientResult>> getClient(obj) async {
     var dbClient = await dbProvider.db;
     List<ClientResult> data = <ClientResult>[];
     List<Map> list = await dbClient
-        .rawQuery("SELECT * FROM clients  WHERE fio LIKE '%$obj%'");
+        .rawQuery("SELECT * FROM clients WHERE fio LIKE '%$obj%' ORDER BY bookmark DESC");
     for (int i = 0; i < list.length; i++) {
       ClientResult clientResult = ClientResult(
         id: list[i]["id"],
@@ -29,6 +36,7 @@ class ClientBaseHelper {
         address: list[i]["address"],
         latitude: list[i]["latitude"],
         longitude: list[i]["longitude"],
+        bookmark: list[i]["bookmark"],
         uzsAcc: 0,
         usdAcc: 0,
         uzsStart: 0,

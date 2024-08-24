@@ -62,6 +62,7 @@ class DatabaseHelper {
     await db.execute('''
           CREATE TABLE clients(
             id INTEGER PRIMARY KEY,
+            bookmark INTEGER,
             district INTEGER,
             fio TEXT,
             type INTEGER,

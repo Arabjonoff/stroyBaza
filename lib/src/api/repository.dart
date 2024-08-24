@@ -36,6 +36,7 @@ class Repository {
 
   /// Client Base
   Future<int> saveClient(ClientResult item) async => await _clientBaseHelper.saveClient(item);
+  Future<int> updateClientBase(ClientResult item) async => await _clientBaseHelper.updateClient(item);
   Future<List<ClientResult>> getClientBase(obj) async => await _clientBaseHelper.getClient(obj);
   Future<void> clearClientBase() async => await _clientBaseHelper.clear();
 

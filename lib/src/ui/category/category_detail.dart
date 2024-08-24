@@ -21,7 +21,7 @@ class CategoryDetailScreen extends StatefulWidget {
   State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
 }
 class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
-  int selectedIndex = 0,count = 1;
+  int selectedIndex = 0,count = 1,price = -1,color = -1;
   bool isButton = true;
   final Repository _repository = Repository();
   TextEditingController controller = TextEditingController();
@@ -51,7 +51,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         setState(() {});
                       },
                       scrollDirection: Axis.horizontal,
-                      itemCount: widget.img.length,
+                      itemCount: 5,
                       itemBuilder: (ctx,index){
                       return Container(
                         margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 8),
@@ -97,11 +97,23 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                       ],
                     ),
                   ),
-                  TextFieldWidget(controller: controller,prefix: Padding(padding: EdgeInsets.only(top: 14.w), child: Text("Oddiy: ${widget.data.unitPrice}",style: TextStyle(fontWeight: FontWeight.bold),),
+                  TextFieldWidget(
+                    onTap: (){
+                      setState(() {
+                      });
+                      price = 0;
+                    },
+                    controller: controller,readOnly:true,isBorder: price==0?true:false,prefix: Padding(padding: EdgeInsets.only(top: 14.w), child: Text("Oddiy: ${widget.data.unitPrice}",style: const TextStyle(fontWeight: FontWeight.bold),),
                   ),),
-                  TextFieldWidget(controller: controller,prefix: Padding(
+                  TextFieldWidget(
+                    onTap: (){
+                      setState(() {
+                      });
+                      price = 1;
+                    },
+                    controller: controller,readOnly:true,isBorder: price==1?true:false,prefix: Padding(
                     padding: EdgeInsets.only(top: 14.w),
-                    child: Text("Optom: ${widget.data.wholesalePrice}",style: TextStyle(fontWeight: FontWeight.bold),),
+                    child: Text("Optom: ${widget.data.wholesalePrice}",style: const TextStyle(fontWeight: FontWeight.bold),),
                   ),),
                   Padding(
                     padding: EdgeInsets.only(left: 16.0.w),
@@ -113,23 +125,38 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                     itemCount: widget.data.productCounts.length,
                       shrinkWrap: true,
                       itemBuilder: (context,index){
-                    return Container(
-                      padding: EdgeInsets.only(top: 10.h,left: 16.w),
-                      margin: EdgeInsets.symmetric(horizontal: 16.w,vertical: 4.h),
-                      width: MediaQuery.of(context).size.width,
-                      height: 44.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Colors.grey)
+                    return GestureDetector(
+                      onTap: (){
+                        setState(() {
+                        });
+                        color = index;
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(top: 10.h,left: 16.w),
+                        margin: EdgeInsets.symmetric(horizontal: 16.w,vertical: 4.h),
+                        width: MediaQuery.of(context).size.width,
+                        height: 44.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: index == color?AppColors.blue:Colors.grey)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("${widget.data.productCounts[index].color.name} - ",style: AppStyle.headLine3(Colors.black),),
+                            Text(widget.data.productCounts[index].size.name,style: AppStyle.headLine3(Colors.black),),
+                          ],
+                        ),
                       ),
-                      child: Text(widget.data.productCounts[index].color.name,style: AppStyle.headLine3(Colors.black),),
                     );
                   })
                 ],
               ),
             ),
           ),
-          if (isButton) ButtonWidget(height: 64, onTap: ()async{
+          if (isButton) ButtonWidget(
+              height: 64, onTap: ()async{
             OrderModel item = OrderModel(
                 id: widget.data.id,
                 count: 1,

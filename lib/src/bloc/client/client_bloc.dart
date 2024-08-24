@@ -23,6 +23,10 @@ class ClientBloc{
       _fetchClientInfo.sink.add(clientBase);
     }
   }
+  updateClient(item)async{
+    await _repository.updateClientBase(item);
+    await getAllClient('');
+  }
   clear()async{
     await _repository.clearClientBase();
     getAllClient("");
