@@ -3,6 +3,7 @@ import 'package:stroy_baza/src/ui/cart/cart_screen.dart';
 import 'package:stroy_baza/src/ui/category/category_screen.dart';
 import 'package:stroy_baza/src/ui/home/home_screen.dart';
 import 'package:stroy_baza/src/ui/order/order_screen.dart';
+import 'package:stroy_baza/src/ui/profile/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -16,7 +17,7 @@ class _MainScreenState extends State<MainScreen> {
     HomeScreen(),
     OrderScreen(),
     CartScreen(),
-    Container(),
+    ProfileScreen(),
   ];
   int selectedIndex = 0;
   @override

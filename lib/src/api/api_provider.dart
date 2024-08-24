@@ -269,9 +269,9 @@ class ApiProvider{
     String url = "${_baseUrl}app/orders/$id/";
     return await _deleteRequest(url,{});
   }
-  Future<HttpResult> orderAdd()async{
+  Future<HttpResult> orderAdd(data)async{
     String url = "${_baseUrl}app/orders/";
-    return await _postRequest(url,{});
+    return await _postRequest(url,json.encode(data));
   }
 
 }

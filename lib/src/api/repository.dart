@@ -77,5 +77,6 @@ class Repository {
   Future<HttpResult> orderList() async => await _apiProvider.orderList();
   Future<HttpResult> orderDetail(id) async => await _apiProvider.orderDetail(id);
   Future<HttpResult> orderDelete(id) async => await _apiProvider.orderDelete(id);
+  Future<HttpResult> orderAdd(data) async => await _apiProvider.orderAdd(data);
 
 }
