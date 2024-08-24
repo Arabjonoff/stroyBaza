@@ -21,7 +21,8 @@ class CategoryDetailScreen extends StatefulWidget {
   State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
 }
 class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
-  int selectedIndex = 0,count = 1,price = -1,color = -1;
+  int selectedIndex = 0,count = 1,price = -1,color = -1,productId=0;
+  String selectPrice = '';
   bool isButton = true;
   final Repository _repository = Repository();
   TextEditingController controller = TextEditingController();
@@ -88,12 +89,6 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                             Text("${widget.data.category.name}")
                           ],
                         ),
-                        Row(
-                          children: [
-                            Text("Razmeri: ",style: TextStyle(fontWeight: FontWeight.bold),),
-                            Text(widget.data.size)
-                          ],
-                        ),
                       ],
                     ),
                   ),
@@ -102,6 +97,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                       setState(() {
                       });
                       price = 0;
+                      selectPrice = widget.data.unitPrice;
                     },
                     controller: controller,readOnly:true,isBorder: price==0?true:false,prefix: Padding(padding: EdgeInsets.only(top: 14.w), child: Text("Oddiy: ${widget.data.unitPrice}",style: const TextStyle(fontWeight: FontWeight.bold),),
                   ),),
@@ -110,6 +106,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                       setState(() {
                       });
                       price = 1;
+                      selectPrice = widget.data.wholesalePrice;
                     },
                     controller: controller,readOnly:true,isBorder: price==1?true:false,prefix: Padding(
                     padding: EdgeInsets.only(top: 14.w),
@@ -130,6 +127,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         setState(() {
                         });
                         color = index;
+                        productId = widget.data.productCounts[index].id;
                       },
                       child: Container(
                         padding: EdgeInsets.only(top: 10.h,left: 16.w),
@@ -158,11 +156,11 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
           if (isButton) ButtonWidget(
               height: 64, onTap: ()async{
             OrderModel item = OrderModel(
-                id: widget.data.id,
-                count: 1,
-                price: 2,
+                id: productId,
+                count: count,
+                price: num.parse(selectPrice),
                 image: 'image',
-                name: 'name');
+                name: widget.data.name);
             cartBloc.saveCart(item);
             setState(() {
               isButton = false;
@@ -206,6 +204,13 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
 
                           }else{
                             count --;
+                            OrderModel item = OrderModel(
+                                id: productId,
+                                count: count,
+                                price: num.parse(selectPrice),
+                                image: 'image',
+                                name: widget.data.name);
+                            cartBloc.saveCart(item);
                           }
                           setState(() {});
                         },
@@ -228,6 +233,13 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         onTap: (){
                           count ++;
                           setState(() {});
+                          OrderModel item = OrderModel(
+                              id: productId,
+                              count: count,
+                              price: num.parse(selectPrice),
+                              image: 'image',
+                              name: widget.data.name);
+                          cartBloc.saveCart(item);
                         },
                         child: Container(
                           width: 54.w,

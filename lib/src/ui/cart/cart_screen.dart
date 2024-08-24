@@ -52,8 +52,8 @@ class _CartScreenState extends State<CartScreen> {
                   child: ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (context,index){
-                        _controllersCount.add(TextEditingController());
-                        _controllersPrice.add(TextEditingController());
+                        _controllersCount.add(TextEditingController(text: data[index].count.toString()));
+                        _controllersPrice.add(TextEditingController(text: data[index].price.toString()));
                         return Container(
                           margin: EdgeInsets.symmetric(horizontal: 14.w,vertical: 8.h),
                           width: MediaQuery.of(context).size.width,

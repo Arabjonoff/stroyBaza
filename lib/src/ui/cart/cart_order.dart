@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stroy_baza/src/dialog/bottom_dialog.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
+import 'package:stroy_baza/src/ui/client/client_list.dart';
+import 'package:stroy_baza/src/utils/rx_bus.dart';
 import 'package:stroy_baza/src/widgets/button_widget.dart';
 import 'package:stroy_baza/src/widgets/text_field_widget.dart';
 
@@ -13,8 +16,14 @@ class CartOrderScreen extends StatefulWidget {
 
 class _CartOrderScreenState extends State<CartOrderScreen> {
   TextEditingController controllerClient = TextEditingController();
+  TextEditingController controllerClientId = TextEditingController();
   TextEditingController controllerDate = TextEditingController();
   TextEditingController controllerComment = TextEditingController();
+  @override
+  void initState() {
+    _initBus();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +38,7 @@ class _CartOrderScreenState extends State<CartOrderScreen> {
               children: [
                 TextFieldWidget(
                   onTap: (){
-                    print("object");
+                    BottomDialog.showBottomDialog(context, const ClientListScreen(bookmark: 0), 500);
                   },
                   controller: controllerClient,
                   hintText: "Klientni tanlang",
@@ -55,5 +64,13 @@ class _CartOrderScreenState extends State<CartOrderScreen> {
         ],
       ),
     );
+  }
+  _initBus(){
+    RxBus.register(tag: "clientName").listen((event) {
+      controllerClient.text = event;
+    });
+    RxBus.register(tag: "clientId").listen((event) {
+      controllerClientId.text = event;
+    });
   }
 }

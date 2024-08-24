@@ -31,7 +31,7 @@ class _MainScreenState extends State<MainScreen> {
         },
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.indeterminate_check_box),label: "Asosiy"),
+          BottomNavigationBarItem(icon: Icon(Icons.home),label: "Asosiy"),
           BottomNavigationBarItem(icon: Icon(Icons.list_alt_rounded),label: "Buyutrma"),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_bag),label: "Savat"),
           BottomNavigationBarItem(icon: Icon(Icons.account_box),label: "Profil"),
