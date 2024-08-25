@@ -28,7 +28,7 @@ class TextFieldWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             alignment: Alignment.center,
             width: MediaQuery.of(context).size.width,
-            height: 64.h,
+            height: 48.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               border: Border.all(color: isBorder?AppColors.blue:AppColors.black)

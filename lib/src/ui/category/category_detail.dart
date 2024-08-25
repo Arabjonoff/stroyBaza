@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stroy_baza/src/api/repository.dart';
 import 'package:stroy_baza/src/bloc/cart/cart_bloc.dart';
+import 'package:stroy_baza/src/dialog/toast_dialog.dart';
 import 'package:stroy_baza/src/model/order/order_model.dart';
 import 'package:stroy_baza/src/model/parametrs/product_model.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
@@ -155,16 +156,22 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
           ),
           if (isButton) ButtonWidget(
               height: 64, onTap: ()async{
-            OrderModel item = OrderModel(
-                id: productId,
-                count: count,
-                price: num.parse(selectPrice),
-                image: 'image',
-                name: widget.data.name);
-            cartBloc.saveCart(item);
-            setState(() {
-              isButton = false;
-            });
+                try{
+                  OrderModel item = OrderModel(
+                      id: productId,
+                      count: count,
+                      price: num.parse(selectPrice),
+                      image: widget.img[0],
+                      name: widget.data.name,
+                      priceType: price==0?"Oddiy":"Optom"
+                  );
+                  cartBloc.saveCart(item);
+                  setState(() {
+                    isButton = false;
+                  });
+                }catch(e){
+                  ToastDialog.showErrorToast(context, e.toString());
+                }
           }, text: "Savatga qo’shish", color: AppColors.blue, textColor: Colors.white) else Container(
             margin: EdgeInsets.symmetric(horizontal: 14.w),
             height: 64.h,
@@ -208,8 +215,10 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                                 id: productId,
                                 count: count,
                                 price: num.parse(selectPrice),
-                                image: 'image',
-                                name: widget.data.name);
+                                image: widget.img[0],
+                                name: widget.data.name,
+                                priceType: price==0?"Oddiy":"Optom"
+                            );
                             cartBloc.saveCart(item);
                           }
                           setState(() {});
@@ -237,8 +246,10 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                               id: productId,
                               count: count,
                               price: num.parse(selectPrice),
-                              image: 'image',
-                              name: widget.data.name);
+                              image: widget.img[0],
+                              name: widget.data.name,
+                              priceType: price==0?"Oddiy":"Optom"
+                          );
                           cartBloc.saveCart(item);
                         },
                         child: Container(

@@ -4,6 +4,7 @@ class OrderModel {
   dynamic price;
   String name;
   String image;
+  String priceType;
 
   OrderModel({
     required this.id,
@@ -11,6 +12,7 @@ class OrderModel {
     required this.price,
     required this.image,
     required this.name,
+    required this.priceType,
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
@@ -19,6 +21,7 @@ class OrderModel {
     price: json["price"],
     image: json["image"],
     name: json["name"],
+    priceType: json["priceType"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -27,5 +30,6 @@ class OrderModel {
     "price": price,
     "image": image,
     "name": name,
+    "priceType": priceType,
   };
 }

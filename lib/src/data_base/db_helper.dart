@@ -54,7 +54,8 @@ class DatabaseHelper {
         count REAL,
         name TEXT,
         image TEXT,
-        price REAL
+        price REAL,
+        priceType TEXT
       )
        ''');
 

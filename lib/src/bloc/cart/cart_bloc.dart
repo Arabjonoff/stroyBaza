@@ -14,6 +14,10 @@ class CartBloc {
     List<OrderModel> data = await _repository.getOrderBase();
     _fetchCartInfo.sink.add(data);
   }
+  updateCart(item)async{
+    await _repository.updateOrderBase(item);
+    await getCartAll();
+  }
   delete(id)async{
     await _repository.deleteOrder(id);
     await getCartAll();

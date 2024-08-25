@@ -12,6 +12,13 @@ class OrderBaseHelper {
     return await res;
   }
 
+  Future<int> updateOrder(OrderModel item) async {
+    var dbClient = await _dbProvider.db;
+    var res = dbClient.update('orders', item.toJson(),where: 'id=?',whereArgs: [item.id]);
+    return await res;
+  }
+
+
   Future<List<OrderModel>> getOrder() async {
     var dbClient = await _dbProvider.db;
     List<OrderModel> data = <OrderModel>[];
@@ -24,6 +31,7 @@ class OrderBaseHelper {
         price: list[i]["price"],
         image: list[i]["image"],
         name: list[i]["name"],
+        priceType: list[i]["priceType"],
       );
       data.add(orderModel);
     }
