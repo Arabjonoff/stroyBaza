@@ -1,7 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:stroy_baza/src/theme/app_colors.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -11,40 +11,116 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  final Completer<GoogleMapController> _controller =
-  Completer<GoogleMapController>();
+  double latitude = 0,longitude=0;
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
-  static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(40.772534, 72.3372019),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+  @override
+  void initState() {
+    super.initState();
+  }
+  late YandexMapController _yandexMapController;
+  PlacemarkMapObject? _placemark;
+  String _address = '';
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GoogleMap(
-        mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: const Text('To the lake!'),
-        icon: const Icon(Icons.directions_boat),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text('Select Location')),
+        body: Stack(
+          children: [
+            YandexMap(
+              onMapCreated: (YandexMapController controller) {
+                _yandexMapController = controller;
+              },
+              onMapTap: (Point point) async {
+                setState(() {
+                  _placemark = PlacemarkMapObject(
+                    mapId: MapObjectId('selected_placemark'),
+                    point: point,
+                    icon: PlacemarkIcon.single(
+                      PlacemarkIconStyle(
+                        image: BitmapDescriptor.fromAssetImage('assets/images/placemark.png',), // Sizning markeringiz rasmi
+                        scale: 1.0,
+                      ),
+                    ),
+                  );
+                  print(_placemark!.point.longitude);
+                });
+                // await _getAddress(point);
+              },
+                mapObjects: _placemark != null ? [_placemark!] : [PlacemarkMapObject(
+                  mapId: MapObjectId('selected_placemark'),
+                  point: Point(latitude: latitude,longitude:longitude ),
+                  icon: PlacemarkIcon.single(
+                    PlacemarkIconStyle(
+                      image: BitmapDescriptor.fromAssetImage('assets/images/placemark.png',), // Sizning markeringiz rasmi
+                      scale: 1.0,
+                    ),
+                  ),
+                )],
+            ),
+            Positioned(
+              bottom: 20,
+              left: 20,
+              right: 20,
+              child: Container(
+                padding: EdgeInsets.all(10),
+                color: Colors.white,
+                child: Text(
+                  _address.isNotEmpty ? _address : 'Tanlangan joyning nomi',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: AppColors.blue,
+          onPressed: (){
+            _geoLocation();
+          },
+          child: const Icon(Icons.location_on_outlined,color: Colors.white,),
+        ),
       ),
     );
   }
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+  // Future<void> _getAddress(Point point) async {
+  //   final searchResult = await YandexMapkit.instance.search(
+  //     query: 'query', // Qidiruv so'rovi
+  //     point: point,
+  //     zoom: 16,
+  //     searchOptions: SearchOptions(),
+  //   );
+  //
+  //   if (searchResult.items != null && searchResult.items!.isNotEmpty) {
+  //     final topResult = searchResult.items!.first;
+  //     setState(() {
+  //       _address = topResult.name;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       _address = 'Noma\'lum joy';
+  //     });
+  //   }
+  // }
+  _geoLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+    longitude = position.longitude;
+    latitude = position.latitude;
+    await _yandexMapController.moveCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: Point(
+            latitude: position.latitude,
+            longitude: position.longitude,
+          ),
+        ),
+      ),
+      animation: const MapAnimation(type: MapAnimationType.smooth, duration: 2.0),
+    );
+    setState(() {});
   }
 }
