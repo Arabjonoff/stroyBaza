@@ -163,6 +163,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                       price: num.parse(selectPrice),
                       image: widget.img[0],
                       name: widget.data.name,
+                      currency: widget.data.name,
                       priceType: price==0?"Oddiy":"Optom"
                   );
                   cartBloc.saveCart(item);
@@ -217,6 +218,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                                 price: num.parse(selectPrice),
                                 image: widget.img[0],
                                 name: widget.data.name,
+                                currency: widget.data.name,
                                 priceType: price==0?"Oddiy":"Optom"
                             );
                             cartBloc.saveCart(item);
@@ -248,6 +250,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                               price: num.parse(selectPrice),
                               image: widget.img[0],
                               name: widget.data.name,
+                              currency: widget.data.name,
                               priceType: price==0?"Oddiy":"Optom"
                           );
                           cartBloc.saveCart(item);

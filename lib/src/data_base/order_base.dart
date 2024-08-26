@@ -32,6 +32,7 @@ class OrderBaseHelper {
         image: list[i]["image"],
         name: list[i]["name"],
         priceType: list[i]["priceType"],
+        currency: list[i]["currency"],
       );
       data.add(orderModel);
     }

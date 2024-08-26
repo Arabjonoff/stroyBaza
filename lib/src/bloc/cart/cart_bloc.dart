@@ -22,5 +22,9 @@ class CartBloc {
     await _repository.deleteOrder(id);
     await getCartAll();
   }
+  clear()async{
+    await _repository.clearOrderBase();
+    await getCartAll();
+  }
 }
 final cartBloc = CartBloc();

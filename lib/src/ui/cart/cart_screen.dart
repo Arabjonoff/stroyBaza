@@ -137,7 +137,9 @@ class _CartScreenState extends State<CartScreen> {
                                                     price: data[index].price,
                                                     image: data[index].image,
                                                     name: data[index].name,
-                                                    priceType: data[index].priceType,);
+                                                    priceType: data[index].priceType,
+                                                    currency: data[index].currency,
+                                                  );
                                                   await cartBloc.updateCart(item);
                                                 }catch(e){
                                                   ToastDialog.showErrorToast(context, "Faqat raqam kiriting!");

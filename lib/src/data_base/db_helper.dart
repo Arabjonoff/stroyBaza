@@ -55,6 +55,7 @@ class DatabaseHelper {
         name TEXT,
         image TEXT,
         price REAL,
+        currency TEXT,
         priceType TEXT
       )
        ''');

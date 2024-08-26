@@ -52,6 +52,7 @@ class _ClientListScreenState extends State<ClientListScreen> {
                         if(widget.bookmark == data[index].bookmark){
                           return GestureDetector(
                             onTap: (){
+                              clientBloc.getAllClient(data[index].fio);
                               RxBus.post(data[index].id.toString(),tag: "clientId");
                               RxBus.post(data[index].fio,tag: "clientName");
                               Navigator.pop(context);
