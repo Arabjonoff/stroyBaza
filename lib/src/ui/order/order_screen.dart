@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
+import 'package:stroy_baza/src/ui/order/order_list.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -58,6 +59,8 @@ class _OrderScreenState extends State<OrderScreen> {
         ),
         body: const TabBarView(
           children: [
+            OrderListScreen(status: 1,),
+            OrderListScreen(status: 5,)
           ],
         ),
       ),

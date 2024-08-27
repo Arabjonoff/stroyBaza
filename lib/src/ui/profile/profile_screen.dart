@@ -103,7 +103,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             title: Text("Buyurtmalarim",style: AppStyle.headLine2(Colors.black.withOpacity(0.8)),),
             trailing: const Icon(Icons.arrow_forward_ios),
           ),
-          Expanded(child: ListView.builder(itemBuilder: (ctx,index){
+          Expanded(child:
+          ListView.builder(itemBuilder: (ctx,index){
             return  Container(
               margin: EdgeInsets.symmetric(horizontal: 16.w,vertical: 4),
               decoration: BoxDecoration(

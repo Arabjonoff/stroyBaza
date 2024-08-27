@@ -62,8 +62,8 @@ class OrderResult {
   String orderId;
   dynamic finishedDate;
   dynamic returnedDate;
-  int totalSummaUzs;
-  int totalSummaUsd;
+  num totalSummaUzs;
+  num totalSummaUsd;
   String clientBeforeUzs;
   String clientBeforeUsd;
   String clientAfterUzs;
@@ -154,7 +154,7 @@ class Item {
   String count;
   String price;
   String currency;
-  int totalPrice;
+  num totalPrice;
 
   Item({
     required this.id,

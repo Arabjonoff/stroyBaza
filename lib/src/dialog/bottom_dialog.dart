@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 class BottomDialog{
   static showBottomDialog(BuildContext context,Widget screen,double height){

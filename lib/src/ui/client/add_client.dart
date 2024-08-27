@@ -30,6 +30,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
   TextEditingController controllerPhone = TextEditingController();
   TextEditingController controllerLatitude = TextEditingController(text: '0');
   TextEditingController controllerLongitude = TextEditingController(text: '0');
+  TextEditingController controllerAddress = TextEditingController(text: '');
   final Repository _repository = Repository();
   @override
   void initState() {
@@ -56,9 +57,9 @@ class _AddClientScreenState extends State<AddClientScreen> {
                     BottomDialog.showBottomDialog(context,  DistrictScreen(obj: controllerRegionId.text,),300);
                   },readOnly: true,),
                   TextFieldWidget(controller: controllerPhone,hintText: "Telfon",isPlaceholder: true,placeholder: "Telfon",),
-                  TextFieldWidget(controller: controllerLongitude,hintText: "Joylashuv",isPlaceholder: true,placeholder: "Joylashuv",suffixIcon: const Icon(Icons.location_on,size: 34,),onTap: (){
+                  TextFieldWidget(controller: controllerAddress,hintText: "Joylashuv",isPlaceholder: true,placeholder: "Joylashuv",suffixIcon: const Icon(Icons.location_on,size: 34,),onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                      return const MapScreen();
+                      return  MapScreen();
                     }));
                   },readOnly: true,),
                 ],
@@ -73,7 +74,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
               "fio":controllerName.text,
               "phone":controllerPhone.text,
               "telegram_id":"none",
-              "address":controllerRegionId.text,
+              "address":controllerAddress.text,
               "latitude":controllerLatitude.text,
               "longitude":controllerLongitude.text
             };
@@ -106,10 +107,13 @@ class _AddClientScreenState extends State<AddClientScreen> {
       controllerDistrictId.text = event;
     });
     RxBus.register(tag: "latitude").listen((event) {
-     controllerLatitude.text = event;
+      controllerLatitude.text = event;
     });
     RxBus.register(tag: "longitude").listen((event) {
       controllerLongitude.text = event;
+    });
+    RxBus.register(tag: "address").listen((event) {
+      controllerAddress.text = event;
     });
   }
 }
