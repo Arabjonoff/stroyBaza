@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:stroy_baza/src/api/repository.dart';
+import 'package:stroy_baza/src/bloc/cart/cart_bloc.dart';
 import 'package:stroy_baza/src/bloc/order/order_bloc.dart';
 import 'package:stroy_baza/src/dialog/bottom_dialog.dart';
 import 'package:stroy_baza/src/model/order/order_list_model.dart';
 import 'package:stroy_baza/src/theme/app_colors.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
 import 'package:stroy_baza/src/ui/client/client_list.dart';
+import 'package:stroy_baza/src/ui/order/order_item.dart';
 import 'package:stroy_baza/src/widgets/button_widget.dart';
 import 'package:stroy_baza/src/widgets/text_field_widget.dart';
 
@@ -123,26 +126,36 @@ class _OrderEditScreenState extends State<OrderEditScreen> {
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 16),
-            padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 12),
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow:  [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.4),
-                  blurRadius: 5,
-                  offset: Offset(0,1)
-                )
-              ]
-            ),
-            child: Row(
-              children: [
-                const Icon(Icons.arrow_back_ios),
-                Text("${widget.data.items.length} ta mahsulot",style: AppStyle.headLine3(Colors.black),),
-              ],
+          GestureDetector(
+            onTap: ()async{
+              for(int i=0;i<widget.data.items.length;i++){
+                await cartBloc.saveCart(widget.data.items[i]);
+              }
+              Navigator.push(context, MaterialPageRoute(builder: (ctx){
+                return OrderItemScreen();
+              }));
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 16),
+              padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 12),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                boxShadow:  [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.4),
+                    blurRadius: 5,
+                    offset: Offset(0,1)
+                  )
+                ]
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.arrow_back_ios),
+                  Text("${widget.data.items.length} ta mahsulot",style: AppStyle.headLine3(Colors.black),),
+                ],
+              ),
             ),
           ),
           ButtonWidget(height: 48, onTap: ()async{

@@ -282,4 +282,10 @@ class ApiProvider{
     return await _patchRequest(url,json.encode(data));
   }
 
+  Future<HttpResult> getProfile()async{
+    String url = "${_baseUrl}app/users/get/";
+    return await _getRequest(url,);
+  }
+
+
 }
