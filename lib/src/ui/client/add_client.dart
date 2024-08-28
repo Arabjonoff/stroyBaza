@@ -51,7 +51,7 @@ class _AddClientScreenState extends State<AddClientScreen> {
                 children: [
                   TextFieldWidget(controller: controllerName,hintText: "F.I.O",isPlaceholder: true,placeholder: "F.I.O",),
                   TextFieldWidget(controller: controllerRegion,hintText: "Viloyat",isPlaceholder: true,placeholder: "Viloyat",suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,size: 34,),onTap: ()async{
-                    BottomDialog.showBottomDialog(context, const RegionScreen(),300);
+                    BottomDialog.showBottomDialog(context,  RegionScreen(switchTab: (int ) {  },),300);
                   },readOnly: true,),
                   TextFieldWidget(controller: controllerDistrict,hintText: "Tuman",isPlaceholder: true,placeholder: "Tuman",suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded,size: 34,),onTap: (){
                     BottomDialog.showBottomDialog(context,  DistrictScreen(obj: controllerRegionId.text,),300);
