@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
           GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (ctx){
-                return ClientScreen(switchTab: (int i ) { return i; },);
+                return ClientScreen();
               }));
             },
             child: Container(

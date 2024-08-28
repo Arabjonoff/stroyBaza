@@ -24,7 +24,7 @@ class ClientBaseHelper {
     var dbClient = await dbProvider.db;
     List<ClientResult> data = <ClientResult>[];
     List<Map> list = await dbClient
-        .rawQuery("SELECT * FROM clients WHERE fio LIKE '%$obj%' ORDER BY bookmark DESC");
+        .rawQuery("SELECT * FROM clients WHERE fio LIKE '%$obj%' OR ORDER BY bookmark DESC");
     for (int i = 0; i < list.length; i++) {
       ClientResult clientResult = ClientResult(
         id: list[i]["id"],

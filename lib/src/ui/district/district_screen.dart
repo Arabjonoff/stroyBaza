@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stroy_baza/src/bloc/district/district_bloc.dart';
 import 'package:stroy_baza/src/model/district/discrit_model.dart';
 import 'package:stroy_baza/src/theme/app_style.dart';
+import 'package:stroy_baza/src/ui/client/client.dart';
+import 'package:stroy_baza/src/ui/client/client_list.dart';
 import 'package:stroy_baza/src/utils/rx_bus.dart';
 
 class DistrictScreen extends StatefulWidget {
@@ -36,9 +38,16 @@ class _DistrictScreenState extends State<DistrictScreen> {
                   itemBuilder: (ctx,index){
                     return ListTile(
                       onTap: ()async{
-                        RxBus.post(data[index].name,tag: 'districtName');
-                        RxBus.post(data[index].id.toString(),tag: 'districtId');
-                        Navigator.pop(context);
+                        if(widget.appBar){
+                          RxBus.post(data[index].name,tag: 'districtName');
+                          RxBus.post(data[index].id.toString(),tag: 'districtId');
+                          Navigator.pop(context);
+                        }
+                        else{
+                          Navigator.push(context, MaterialPageRoute(builder: (context){
+                            return ClientListScreen(bookmark: 0);
+                          }));
+                        }
                       },
                       title: Text(data[index].name,style: AppStyle.headLine3(Colors.black),),
                     );

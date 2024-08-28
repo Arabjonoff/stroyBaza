@@ -9,8 +9,7 @@ import 'package:stroy_baza/src/ui/district/district_screen.dart';
 import 'package:stroy_baza/src/ui/region/region_screen.dart';
 
 class ClientScreen extends StatefulWidget {
-  final Function(int) switchTab;
-  const ClientScreen({super.key, required this.switchTab});
+  const ClientScreen({super.key,});
 
   @override
   State<ClientScreen> createState() => _ClientScreenState();
