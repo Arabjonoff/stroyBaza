@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stroy_baza/src/utils/cache.dart';
 
 import '../model/http_result.dart';
 import 'package:http/http.dart' as http;
@@ -26,8 +27,8 @@ class ApiProvider{
     }
   }
    Future<HttpResult> _patchRequest(String url, body,) async {
-    // print(url);
-    // print(body);
+    print(url);
+    print(body);
     try {
       final dynamic headers = await getReqHeader();
       http.Response response = await http.patch(
@@ -76,13 +77,16 @@ class ApiProvider{
     }
   }
    Future<HttpResult> _deleteRequest(String url, body,) async {
-    // print(url);
-    // print(body);
+    print(url);
+    print(body);
     try {
       final dynamic headers = await getReqHeader();
       http.Response response = await http.delete(
         Uri.parse(url),
-        headers: headers,
+        headers: {
+          "Accept": "application/json; charset=utf-8",
+          'Authorization': 'Token ${CacheService.getUserToken()}',
+        },
         body: body,
       ).timeout(_duration);
       return _result(response);
@@ -272,6 +276,10 @@ class ApiProvider{
   Future<HttpResult> orderAdd(data)async{
     String url = "${_baseUrl}app/orders/";
     return await _postRequest(url,json.encode(data));
+  }
+  Future<HttpResult> orderUpdate(data,id)async{
+    String url = "${_baseUrl}app/orders/$id/";
+    return await _patchRequest(url,json.encode(data));
   }
 
 }

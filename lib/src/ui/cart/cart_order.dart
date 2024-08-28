@@ -81,7 +81,7 @@ class _CartOrderScreenState extends State<CartOrderScreen> {
                        child: Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
                          children: [
-                           Text("Manzil: ${data![0].fio}",style: AppStyle.headLine3(Colors.black),),
+                           Text("Manzil: ${data![0].address}",style: AppStyle.headLine3(Colors.black),),
                            Text("Telefon: ${data[0].phone}",style: AppStyle.headLine3(Colors.black),),
                            Text("",style: AppStyle.headLine3(Colors.black),),
                            Text("Qarzi(UZS): ${data[0].uzsSum}",style: AppStyle.headLine3(Colors.black),),
@@ -183,12 +183,12 @@ class _CartOrderScreenState extends State<CartOrderScreen> {
             };
             HttpResult res = await _repository.orderAdd(data);
             if(res.result["success"]==true){
-              ToastDialog.showSuccessToast(context, "Buyurtma yuborildi");
               await cartBloc.clear();
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx){
                 return const MainScreen();
               }));
               Navigator.popUntil(context, (route) => route.isFirst);
+              ToastDialog.showSuccessToast(context, "Buyurtma yuborildi");
             }
             else{
               ToastDialog.showErrorToast(context, res.result["error"]);

@@ -50,7 +50,7 @@ class Data {
 
 class OrderResult {
   int id;
-  String client;
+  Client client;
   String seller;
   dynamic sender;
   dynamic master;
@@ -59,6 +59,7 @@ class OrderResult {
   String getStatusDisplay;
   List<Item> items;
   String createdDate;
+  String dedline;
   String orderId;
   dynamic finishedDate;
   dynamic returnedDate;
@@ -95,15 +96,17 @@ class OrderResult {
     required this.discountUzs,
     required this.discountUsd,
     required this.comment,
+    required this.dedline,
   });
 
   factory OrderResult.fromJson(Map<String, dynamic> json) => OrderResult(
     id: json["id"]??0,
-    client: json["client"]??"",
+    client: Client.fromJson(json["client"]),
     seller: json["seller"]??"",
     sender: json["sender"]??"",
     master: json["master"]??"",
     cource: json["cource"]??"",
+    dedline: json["dedline"]??"",
     status: json["status"]??1,
     getStatusDisplay: json["get_status_display"]??"",
     items: json["items"]==null?[]:List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
@@ -154,7 +157,7 @@ class Item {
   String count;
   String price;
   String currency;
-  num totalPrice;
+  dynamic totalPrice;
 
   Item({
     required this.id,
@@ -170,8 +173,8 @@ class Item {
     product: ItemProduct.fromJson(json["product"]),
     count: json["count"],
     price: json["price"],
-    currency: json["currency"],
-    totalPrice: json["total_price"],
+    currency: json["currency"]??"",
+    totalPrice: json["total_price"]??"",
   );
 
   Map<String, dynamic> toJson() => {
@@ -258,8 +261,8 @@ class Color {
   });
 
   factory Color.fromJson(Map<String, dynamic> json) => Color(
-    id: json["id"],
-    name: json["name"],
+    id: json["id"]??0,
+    name: json["name"]??"",
   );
 
   Map<String, dynamic> toJson() => {
@@ -281,8 +284,8 @@ class ProductProduct {
 
   factory ProductProduct.fromJson(Map<String, dynamic> json) => ProductProduct(
     name: json["name"],
-    prices: List<Price>.from(json["prices"].map((x) => Price.fromJson(x))),
-    measurement: Color.fromJson(json["measurement"]),
+    prices:json["prices"]==null?[]:List<Price>.from(json["prices"].map((x) => Price.fromJson(x))),
+    measurement:json["measurement"]==null?Color.fromJson({}): Color.fromJson(json["measurement"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -331,8 +334,8 @@ class Price {
 class Warehouse {
   int id;
   String name;
-  int income;
-  int outcome;
+  dynamic income;
+  dynamic outcome;
 
   Warehouse({
     required this.id,
@@ -353,5 +356,56 @@ class Warehouse {
     "name": name,
     "income": income,
     "outcome": outcome,
+  };
+}
+class Client {
+  int id;
+  String fio;
+  int type;
+  String phone;
+  String telegramId;
+  String address;
+  bool isActive;
+  double? latitude;
+  double? longitude;
+  int district;
+
+  Client({
+    required this.id,
+    required this.fio,
+    required this.type,
+    required this.phone,
+    required this.telegramId,
+    required this.address,
+    required this.isActive,
+    required this.latitude,
+    required this.longitude,
+    required this.district,
+  });
+
+  factory Client.fromJson(Map<String, dynamic> json) => Client(
+    id: json["id"],
+    fio: json["fio"],
+    type: json["type"],
+    phone: json["phone"],
+    telegramId: json["telegram_id"],
+    address: json["address"],
+    isActive: json["is_active"],
+    latitude: json["latitude"]?.toDouble(),
+    longitude: json["longitude"]?.toDouble(),
+    district: json["district"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "fio": fio,
+    "type": type,
+    "phone": phone,
+    "telegram_id": telegramId,
+    "address": address,
+    "is_active": isActive,
+    "latitude": latitude,
+    "longitude": longitude,
+    "district": district,
   };
 }

@@ -7,14 +7,18 @@ import 'package:stroy_baza/src/theme/app_style.dart';
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final String hintText,placeholder;
-  final bool keyboardType,readOnly,isPlaceholder,isBorder;
+  final bool keyboardType,readOnly,isPlaceholder,isBorder,background;
   final Widget? suffixIcon,prefix;
   final Function()? onTap;
-  const TextFieldWidget({super.key, required this.controller,this.hintText = '',this.keyboardType =false,this.readOnly =false,this.isPlaceholder =false,this.suffixIcon, this.prefix, this.onTap,this.placeholder = '',this.isBorder = false});
+  const TextFieldWidget({super.key, required this.controller,this.hintText = '',this.background = false,this.keyboardType =false,this.readOnly =false,this.isPlaceholder =false,this.suffixIcon, this.prefix, this.onTap,this.placeholder = '',this.isBorder = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color:background? AppColors.blue.withOpacity(0.3):Colors.transparent
+      ),
       margin: EdgeInsets.symmetric(horizontal: 12.w,vertical: 8.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

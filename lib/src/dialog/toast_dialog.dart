@@ -7,6 +7,7 @@ import 'package:toastification/toastification.dart';
 class ToastDialog{
   static showSuccessToast(BuildContext context,String text){
     return  toastification.show(
+      backgroundColor: Colors.green,
       context: context, // optional if you use ToastificationWrapper
       title: Text("Muvaffaqiyatli",style: AppStyle.headLine3(Colors.white),),
       icon:  Icon(Icons.check_circle_sharp,color: AppColors.white,),

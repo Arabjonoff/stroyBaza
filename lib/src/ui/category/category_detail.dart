@@ -94,6 +94,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                     ),
                   ),
                   TextFieldWidget(
+                    background: price==0?true:false,
                     onTap: (){
                       setState(() {
                       });
@@ -103,6 +104,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                     controller: controller,readOnly:true,isBorder: price==0?true:false,prefix: Padding(padding: EdgeInsets.only(top: 14.w), child: Text("Oddiy: ${widget.data.unitPrice}",style: const TextStyle(fontWeight: FontWeight.bold),),
                   ),),
                   TextFieldWidget(
+                    background: price==1?true:false,
                     onTap: (){
                       setState(() {
                       });
@@ -136,6 +138,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         width: MediaQuery.of(context).size.width,
                         height: 44.h,
                         decoration: BoxDecoration(
+                          color: index == color?AppColors.blue.withOpacity(0.3):Colors.transparent,
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(color: index == color?AppColors.blue:Colors.grey)
                         ),
